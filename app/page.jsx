@@ -4,7 +4,7 @@ import Hero from "../components/Hero";
 
 const page = () => {
   return (
-    <div className="  ">
+    <div className=" ">
       <Navbar />
       <Hero />
     </div>
