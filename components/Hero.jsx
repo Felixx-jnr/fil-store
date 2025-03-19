@@ -5,8 +5,8 @@ import Slider from "./Slider";
 const Hero = () => {
   return (
     <div>
-      <div className=" ">
-        <Slider /> 
+      <div className=" h-[2000px] ">
+        <Slider />
       </div>
     </div>
   );
