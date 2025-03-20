@@ -19,13 +19,13 @@ export default function Navbar() {
   return (
     <nav className="w-full">
       {/* Top Section */}
-      <div className="bg-gray-900 text-white text-center py-2 text-sm">
+      <div className="bg-green-900 text-white text-center py-2 text-sm">
         Free shipping on orders over $50! 🎉
       </div>
 
       {/* Second Section (Sticky Navbar) */}
       <div
-        className={`bg-white transition-all duration-300 ${
+        className={`bg-green-800 transition-all duration-300 ${
           isSticky ? "fixed top-0 left-0 w-full shadow-md z-50" : ""
         }`}
       >
