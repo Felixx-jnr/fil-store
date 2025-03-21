@@ -107,13 +107,13 @@ const Description = ({ activeImage, clickNext, clickPrev }) => {
             variants={containerVariants}
             initial="hidden"
             animate={showContent ? "visible" : "fadeOut"}
-            className=" text-center text-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 mid:w-[45%] lg:w-[60%] md:w-[70%] w-[90%] "
+            className="top-1/2 left-1/2 absolute w-[90%] md:w-[70%] lg:w-[60%] mid:w-[45%] text-white text-center -translate-x-1/2 -translate-y-1/2"
           >
             <motion.p
               variants={paragraphVariants}
               initial="hidden"
               animate="visible"
-              className={` font-bold text-7xl tracking-tighter ${item.titleStyle}`}
+              className={` font-poppins font-bold text-7xl tracking-tighter ${item.titleStyle}`}
             >
               {item.title}
             </motion.p>
@@ -131,7 +131,7 @@ const Description = ({ activeImage, clickNext, clickPrev }) => {
               variants={buttonVariants}
               initial="hidden"
               animate="visible"
-              className=" text-sm px-6 rounded-full py-4 bg-green-800 bg-secondary  "
+              className="bg-green-800 bg-secondary px-6 py-4 rounded-full text-sm"
             >
               Shop Now
             </motion.button>
@@ -140,17 +140,17 @@ const Description = ({ activeImage, clickNext, clickPrev }) => {
           {/* BUTTONS */}
           <div className="max-md:hidden">
             <div
-              className=" absolute top-1/2 -translate-y-1/2 left-10 translate-x-1/2 cursor-pointer"
+              className="top-1/2 left-10 absolute -translate-y-1/2 translate-x-1/2 cursor-pointer"
               onClick={clickPrev}
             >
-              <FaArrowLeftLong className="text-4xl text-green-800 rounded-full p-2 text-smokeWhite transition-all duration-300 bg-black/40 hover:bg-black" />
+              <FaArrowLeftLong className="bg-black/40 hover:bg-black p-2 rounded-full text-green-800 text-smokeWhite text-4xl transition-all duration-300" />
             </div>
 
             <div
-              className=" absolute top-1/2 -translate-y-1/2 right-10 -translate-x-1/2 cursor-pointer"
+              className="top-1/2 right-10 absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer"
               onClick={clickNext}
             >
-              <FaArrowRightLong className="text-4xl text-green-800 rounded-full p-2 text-smokeWhite transition-all duration-300 bg-black/40 hover:bg-black" />
+              <FaArrowRightLong className="bg-black/40 hover:bg-black p-2 rounded-full text-green-800 text-smokeWhite text-4xl transition-all duration-300" />
             </div>
           </div>
         </div>
