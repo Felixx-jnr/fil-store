@@ -20,3 +20,10 @@
 .my-button {
   @apply bg-blue-500 px-4 py-2 rounded text-white;
 }
+
+.home-stick {
+  background-image: url("/filpods.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

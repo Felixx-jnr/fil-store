@@ -15,7 +15,7 @@
 .reviews:after {
   position: absolute;
   top: 0;
-  width: 6%;
+  width: 80px;
   height: 100%;
   content: "";
   z-index: 2;
@@ -23,10 +23,11 @@
 
 .reviews:before {
   left: 0;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0), #ffffff 60%);
+  background: #f0eadc;
 }
 
 .reviews:after {
   right: 0;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 60%);
+  background: #f0eadc;
+  /* background: #f3721d; */
 }

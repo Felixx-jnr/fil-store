@@ -113,7 +113,7 @@ const Description = ({ activeImage, clickNext, clickPrev }) => {
               variants={paragraphVariants}
               initial="hidden"
               animate="visible"
-              className={` font-poppins font-bold text-7xl tracking-tighter ${item.titleStyle}`}
+              className={` font-play font-bold text-7xl ${item.titleStyle}`}
             >
               {item.title}
             </motion.p>
@@ -122,7 +122,7 @@ const Description = ({ activeImage, clickNext, clickPrev }) => {
               variants={headerVariants}
               initial="hidden"
               animate="visible"
-              className={` text-2xl mx-auto mb-5 mt-3 md:mt-5 ${item.descStyle}`}
+              className={` font-dosis text-2xl mx-auto mb-5 mt-3 md:mt-5 ${item.descStyle}`}
             >
               {item.desc}
             </motion.h3>
@@ -131,7 +131,7 @@ const Description = ({ activeImage, clickNext, clickPrev }) => {
               variants={buttonVariants}
               initial="hidden"
               animate="visible"
-              className="bg-green-800 bg-secondary px-6 py-4 rounded-full text-sm"
+              className="bg-green-800 bg-secondary px-3 py-3 rounded-full font-play text-md tracking-wide"
             >
               Shop Now
             </motion.button>

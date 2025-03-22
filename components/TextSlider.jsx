@@ -26,21 +26,37 @@ const sliderText = [
 
 const TextSlider = () => {
   return (
-    <div className="mt-20">
+    <div className="mt-10">
       <div className="mx-5"></div>
 
       <div className="relative flex mt-2 mb-14 reviews">
-        <div className="flex py-4 reviews-slide">
+        <div className="flex reviews-slide">
           {sliderText.map((slide, index) => {
             return (
-              <div
-                key={index}
-                className="flex flex-col mx-2 my-button px-2 py-4 w-64 font-"
-              >
-                <p className="font-play font-semibold text-greenish text-xl">
+              <div key={index} className="flex flex-col mx-2 px-2">
+                <p className="font-play font-semibold text-moss text-3xl tracking-tighter">
                   {slide.title}
                 </p>
-                <p className="">{slide.text}</p>
+
+                <p className="pt-2 font-poppins font-light text-nowrap">
+                  {slide.text}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="flex reviews-slide">
+          {sliderText.map((slide, index) => {
+            return (
+              <div key={index} className="flex flex-col mx-2 px-2">
+                <p className="font-play font-semibold text-moss text-3xl tracking-tighter">
+                  {slide.title}
+                </p>
+
+                <p className="pt-2 font-poppins font-light text-nowrap">
+                  {slide.text}
+                </p>
               </div>
             );
           })}
