@@ -7,8 +7,8 @@ import ProductSection from "./../components/ProductSection";
 
 const page = () => {
   return (
-    <div className="bg-light h-[3000px] overflow-x-hidden">
-      <Navbar />
+    <div className="bg-light overflow-x-hidden">
+      
       <Hero />
       <About />
       <ProductSection />

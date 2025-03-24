@@ -19,7 +19,7 @@ const Slider = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       clickNext();
-    }, 10000); // Change every 10 seconds
+    }, 5000); // Change every 10 seconds
     return () => {
       clearTimeout(timer);
     };
@@ -27,7 +27,7 @@ const Slider = () => {
 
   return (
     <main className="relative overflow-hidden">
-      <div className=" w-full h-[656px] ">
+      <div className="w-full h-[656px]">
         {homeImages.map((item, idx) => (
           <motion.div
             key={idx}
@@ -52,14 +52,14 @@ const Slider = () => {
               initial={{ scale: 1 }} // Start at normal scale
               animate={idx === activeImage ? { scale: 1.1 } : {}} // Only scale the active image
               transition={{
-                duration: 30,
+                duration: 3,
               }}
             ></motion.img>
           </motion.div>
         ))}
       </div>
 
-      <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-full">
+      <div className="top-1/2 left-1/2 absolute w-full -translate-x-1/2 -translate-y-1/2">
         <Description
           activeImage={activeImage}
           clickNext={clickNext}

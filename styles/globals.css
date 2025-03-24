@@ -7,6 +7,10 @@
   --color-moss: #576238;
   --color-mustard: #ffd95d;
   --color-light: #f0eadc;
+  --color-brightGreen: #72eb3a;
+  --color-midGreen: #5d9d0b;
+  --color-darkGreen: #365a08;
+  --color-dark: #1b1d24;
 
   /* FONTS */
   --font-roboto: "Roboto", "sans-serif";
