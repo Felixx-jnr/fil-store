@@ -107,11 +107,13 @@ export default function Navbar() {
             </ul>
 
             {/* Mobile Menu Button */}
-
             <div className="md:hidden flex items-center space-x-2">
-              <BsCart3 className="font-extralight text-2xl" />
-              <IoSearchOutline className="text-2xl" />
-              <button onClick={() => setMenuOpen(!menuOpen)}>
+              <BsCart3 className="font-extralight hover:text-mustard text-2xl" />
+              <IoSearchOutline className="hover:text-mustard text-2xl" />
+              <button
+                className="hover:text-mustard"
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
                 {menuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
             </div>

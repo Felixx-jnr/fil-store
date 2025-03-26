@@ -1,17 +1,17 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+
 import Hero from "../components/Hero";
 import About from "../components/About";
-import Link from "next/link";
 import ProductSection from "./../components/ProductSection";
+import StickOne from "../components/StickOne";
 
 const page = () => {
   return (
-    <div className="bg-light overflow-x-hidden">
-      
+    <div className="bg-light h-[5000px] overflow-x-hidden">
       <Hero />
       <About />
       <ProductSection />
+      {/* <StickOne /> */}
     </div>
   );
 };
