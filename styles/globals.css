@@ -12,6 +12,10 @@
   --color-darkGreen: #365a08;
   --color-dark: #1b1d24;
 
+  /* SCREEN SIZES */
+  --breakpoint-xs: 400px;
+  --breakpoint-xxs: 350px
+
   /* FONTS */
   --font-roboto: "Roboto", "sans-serif";
   --font-montserrat: "Montserrat", sans-serif;

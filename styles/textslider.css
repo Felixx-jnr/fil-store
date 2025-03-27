@@ -29,5 +29,17 @@
 .reviews:after {
   right: 0;
   background: #f0eadc;
-  /* background: #f3721d; */
+}
+
+@media screen and (max-width: 768px) {
+  .reviews:before,
+  .reviews:after {
+    width: 40px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .reviews:before,
+  .reviews:after {
+    width: 20px;
+  }
 }

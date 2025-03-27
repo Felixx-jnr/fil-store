@@ -107,13 +107,13 @@ const Description = ({ activeImage, clickNext, clickPrev }) => {
             variants={containerVariants}
             initial="hidden"
             animate={showContent ? "visible" : "fadeOut"}
-            className="top-1/2 left-1/2 absolute w-[90%] md:w-[70%] lg:w-[60%] mid:w-[45%] text-white text-center -translate-x-1/2 -translate-y-1/2"
+            className="top-1/2 left-1/2 absolute w-[98%] md:w-[70%] lg:w-[60%] mid:w-[45%] text-white text-center -translate-x-1/2 -translate-y-1/2"
           >
             <motion.p
               variants={paragraphVariants}
               initial="hidden"
               animate="visible"
-              className={` font-poppins font-bold text-7xl ${item.titleStyle}`}
+              className={` font-poppins font-bold text-4xl xs:text-6xl sm:text-7xl ${item.titleStyle}`}
             >
               {item.title}
             </motion.p>
@@ -122,7 +122,7 @@ const Description = ({ activeImage, clickNext, clickPrev }) => {
               variants={headerVariants}
               initial="hidden"
               animate="visible"
-              className={` font-poppins text-2xl mx-auto mb-5 mt-3 md:mt-5 ${item.descStyle}`}
+              className={` tracking-tighter font-poppins text-sm xs:text-xl sm:text-2xl mx-auto mb-5 mt-3 md:mt-5 ${item.descStyle}`}
             >
               {item.desc}
             </motion.h3>
@@ -131,7 +131,7 @@ const Description = ({ activeImage, clickNext, clickPrev }) => {
               variants={buttonVariants}
               initial="hidden"
               animate="visible"
-              className="bg-green-800 bg-secondary px-3 py-3 rounded-full font-poppins text-md tracking-wide"
+              className="bg-green-800 bg-secondary px-3 py-3 rounded-full font-poppins text-xs xs:text-sm text:text-xl"
             >
               Shop Now
             </motion.button>

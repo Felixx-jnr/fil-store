@@ -37,55 +37,22 @@ const products = [
 const ProductSection = () => {
   return (
     <div>
-      <div className="mt-20 ml-20 w-[40%] font-play font-semibold text-moss text-4xl">
+      <div className="mx-5 sm:mx-10 md:mx-20 my-10 w-[90%] sm:w-[60%] lg:w-[40%] font-play font-semibold text-moss text-2xl sm:text-3xl md:text-4xl">
         EXPLORE FIL TOP PRODUCTS BY CATEGORY
       </div>
 
-      {/* <div className="justify-center gap-4 grid grid-cols-5 grid-rows-[200px_200px_200px] mx-20 mt-10">
-        <div className="row-span-2 bg-amber-100">
-          <div>
-            <Image
-              src="/charger.webp"
-              alt=""
-              height={200}
-              width={200}
-              className="object-cover"
-            />
-          </div>
-        </div>
-
-        {products.map((product, index) => (
-          <div
-            key={index}
-            className="row-span-[1.5] bg-amber-100"
-          >
-            <div className="w-[60%] h-[60%]">
-              <Image
-                src={product.img}
-                alt=""
-                width={100}
-                height={100}
-                className="bg-amber-200 w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        ))}
-      </div> */}
-
-      <div className="gap-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto w-[80%]">
+      <div className="gap-4 grid grid-cols-2 md:grid-cols-4 mx-auto px-4 w-[90%] sm:w-[600px] md:w-[750px] lg:w-[1000px]">
         {/* Power Banks */}
-        <div className="flex flex-col items-center row-span-2 bg-gray-100 p-4 rounded-lg text-center">
-          <Image
-            src="/charger.webp"
-            alt="Power Banks"
-            width={200}
-            height={200}
-            className="object-contain"
-          />
-          {/* <div>
+        <div className="flex flex-col justify-center gap-6 row-span-2 max-sm:row-span-1 bg-gray-100 px-4 rounded-lg">
+          <div className="self-start">
             <h3 className="mt-2 font-semibold">Power Banks</h3>
             <p className="text-gray-500 text-sm">35 Products</p>
-          </div> */}
+          </div>
+          <img
+            src="/charger.webp"
+            alt="Power Banks"
+            className="self-end sm:self-center w-[100px] sm:w-[250px] h-[100px] sm:h-[200px] object-contain"
+          />
         </div>
 
         {products.map((product, index) => (
@@ -94,8 +61,8 @@ const ProductSection = () => {
             className="flex flex-col bg-gray-100 px-4 rounded-lg"
           >
             <div>
-              <h3 className="mt-2 font-semibold">Chargers</h3>
-              <p className="text-gray-500 text-sm">33 Products</p>
+              <h3 className="mt-2 font-semibold">{product.name}</h3>
+              <p className="text-gray-500 text-sm">{product.amount}</p>
             </div>
             <Image
               src={product.img}
@@ -104,10 +71,6 @@ const ProductSection = () => {
               height={100}
               className="self-end object-contain"
             />
-            <div>
-              {/* <h3 className="mt-2 font-semibold">Chargers</h3>
-              <p className="text-gray-500 text-sm">33 Products</p> */}
-            </div>
           </div>
         ))}
       </div>
