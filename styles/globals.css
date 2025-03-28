@@ -1,27 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62.5,100..900;1,62.5,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @import "tailwindcss";
 
 @theme {
+  /* FONTS */
+  --font-poppins: "Poppins", "sans-serif";
+  --font-play: "Playfair Display", "serif";
+  --font-archivo: "Archivo", sans-serif;
+
   /* COLORS */
   --color-moss: #576238;
   --color-mustard: #ffd95d;
-  --color-light: #f0eadc;
-  --color-brightGreen: #72eb3a;
-  --color-midGreen: #5d9d0b;
-  --color-darkGreen: #365a08;
-  --color-dark: #1b1d24;
+  --color-light: #f3f4f6;
+
+  --color-dark: #181818;
 
   /* SCREEN SIZES */
   --breakpoint-xs: 400px;
-  --breakpoint-xxs: 350px
-
-  /* FONTS */
-  --font-roboto: "Roboto", "sans-serif";
-  --font-montserrat: "Montserrat", sans-serif;
-  --font-poppins: "Poppins", "sans-serif";
-  --font-play: "Playfair Display", "serif";
-  --font-dosis: "Dosis", "sans-serif";
+  --breakpoint-xxs: 350px;
 }
 
 /* REUSABLE STYLE */
@@ -34,4 +30,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

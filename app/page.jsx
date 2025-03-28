@@ -3,7 +3,7 @@ import React from "react";
 import Hero from "../components/Hero";
 import About from "../components/About";
 import ProductSection from "./../components/ProductSection";
-import StickOne from "../components/StickOne";
+import DiscountedSection from "../components/DiscountedSection";
 
 const page = () => {
   return (
@@ -11,7 +11,7 @@ const page = () => {
       <Hero />
       <About />
       <ProductSection />
-      {/* <StickOne /> */}
+      <DiscountedSection />
     </div>
   );
 };

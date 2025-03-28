@@ -23,12 +23,12 @@
 
 .reviews:before {
   left: 0;
-  background: #f0eadc;
+  background: #f3f4f6;
 }
 
 .reviews:after {
   right: 0;
-  background: #f0eadc;
+  background: #f3f4f6;
 }
 
 @media screen and (max-width: 768px) {
