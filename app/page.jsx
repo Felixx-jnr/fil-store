@@ -4,6 +4,7 @@ import Hero from "../components/Hero";
 import About from "../components/About";
 import ProductSection from "./../components/ProductSection";
 import DiscountedSection from "../components/DiscountedSection";
+import Device from "../components/Device";
 
 const page = () => {
   return (
@@ -12,6 +13,7 @@ const page = () => {
       <About />
       <ProductSection />
       <DiscountedSection />
+      <Device />
     </div>
   );
 };
