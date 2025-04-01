@@ -122,7 +122,7 @@ const DiscountedSection = () => {
         </p>
       </div>
 
-      <div className="mx-auto w-[1300px] overflow-x-auto overflow-y-hidden whitespace-nowrap no-scrollbar">
+      <div className="mx-auto overflow-x-auto overflow-y-hidden whitespace-nowrap no-scrollbar">
         <div className="inline-flex gap-4 px-10">
           {products.map((product, index) => (
             // PRODUCT CARDS
@@ -165,6 +165,7 @@ const DiscountedSection = () => {
                     className="max-lg:mb-4"
                   >
                     <p className="font-archivo text-mustard text-sm"> HOT</p>
+                    <p className="text-white"> {index} </p>
                     <h3 className="font-archivo text-light text-xl text-wrap tracking-wide">
                       Anker Prime Charger (250W, 6 Ports, GaNPrime)
                     </h3>
@@ -184,7 +185,7 @@ const DiscountedSection = () => {
                         hover: { opacity: 1, y: 0 },
                       }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="bg-green-800 hover:bg-mustard px-3 py-3 font-poppins text-light hover:text-dark text-xs xs:text-sm"
+                      className="buttons"
                     >
                       Shop Now
                     </motion.button>
@@ -231,6 +232,7 @@ const DiscountedSection = () => {
                     className="max-lg:mb-4"
                   >
                     <p className="font-archivo text-mustard text-sm"> HOT</p>
+                    <p className="text-white"> {index} </p>
                     <h3 className="font-archivo text-light text-xl text-wrap tracking-wide">
                       Anker Prime Charger (250W, 6 Ports, GaNPrime)
                     </h3>
