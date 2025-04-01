@@ -43,7 +43,7 @@ const ProductSection = () => {
 
       <div className="gap-4 grid grid-cols-2 md:grid-cols-4 mx-auto px-4 w-[90%] sm:w-[600px] md:w-[750px] lg:w-[1000px]">
         {/* Power Banks */}
-        <div className="flex flex-col justify-center gap-6 row-span-2 max-sm:row-span-1 bg-gray-200 shadow-sm px-4">
+        <div className="flex flex-col justify-center gap-6 row-span-2 bg-gray-200 shadow-sm px-4">
           <div className="self-start">
             <h3 className="mt-2 font-semibold">Power Banks</h3>
             <p className="text-gray-500 text-sm">35 Products</p>

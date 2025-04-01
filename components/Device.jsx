@@ -4,9 +4,9 @@ import Image from "next/image";
 
 const devs = [
   {
-    img: "/FIL Rebrand new_page-0013.jpg",
+    img: "/FIL Rebrand new_page-0001.jpg",
     title: "Workspace Power",
-    desc: "Powe Your Productivity Right at Your Desk",
+    desc: "Power Your Productivity Right at Your Desk",
   },
   {
     img: "/FIL Rebrand new_page-0002.jpg",
@@ -14,12 +14,12 @@ const devs = [
     desc: "Powe Your Productivity Right at Your Desk",
   },
   {
-    img: "/FIL Rebrand new_page-0001.jpg",
+    img: "/FIL Rebrand new_page-0009.jpg",
     title: "Workspace Power",
     desc: "Powe Your Productivity Right at Your Desk",
   },
   {
-    img: "/FIL Rebrand new_page-0009.jpg",
+    img: "/FIL Rebrand new_page-0013.jpg",
     title: "Workspace Power",
     desc: "Powe Your Productivity Right at Your Desk",
   },
@@ -30,7 +30,7 @@ const Device = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 768);
+      setIsLargeScreen(window.innerWidth >= 600);
     };
 
     handleResize(); // Run once on mount
@@ -45,7 +45,7 @@ const Device = () => {
         DEVICE FOR EVERY MOMENT
       </h2>
 
-      {isLargeScreen && (
+      {/* {isLargeScreen && (
         <div className="justify-center items-center gap-4 grid grid-cols-2 mx-auto w-[90%] lg:w-[85%]">
           {devs.map((dev, index) => (
             <div key={index}>
@@ -58,22 +58,23 @@ const Device = () => {
             </div>
           ))}
         </div>
-      )}
+      )} */}
 
       {!isLargeScreen && (
-        <div className="mx-auto w-[1300px] overflow-x-auto overflow-y-hidden whitespace-nowrap no-scrollbar">
-          <div className="inline-flex gap-4 px-10">
-            {devs.map((dev, index) => (
-              <div key={index}>
-                <Image
-                  src={dev.img}
-                  alt=""
-                  width={1920}
-                  height={1080}
-                />
-              </div>
-            ))}
-          </div>
+        <div className="mx-auto overflow-x-auto overflow-y-hidden whitespace-nowrap no-scrollbar">
+          {devs.map((dev, index) => (
+            <div
+              className="inline-flex gap-4 px-[6px]"
+              key={index}
+            >
+              <Image
+                src={dev.img}
+                alt=""
+                width={600}
+                height={800}
+              />
+            </div>
+          ))}
         </div>
       )}
     </div>
