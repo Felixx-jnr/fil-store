@@ -97,7 +97,7 @@ const products = [
   },
 ];
 
-const DiscountedSection = () => {
+const MustHaveSection = () => {
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
@@ -112,14 +112,11 @@ const DiscountedSection = () => {
   }, []);
 
   return (
-    <section className="bg-fixed mt-16 pb-10 home-stick">
+    <section className="mt-16 pb-10">
       <div className="px-6 pt-5 pb-8">
-        <h2 className="font-archivo text-light text-4xl md:text-5xl tracking-tighter">
-          DISCOUNTED PRODUCTS
+        <h2 className="font-archivo text-dark text-4xl md:text-5xl tracking-tighter">
+          MUST HAVE FIL SELECTION
         </h2>
-        <p className="font-archivo text-mustard tracking-wider">
-          Get the best products at the best prices
-        </p>
       </div>
 
       <div className="mx-auto overflow-x-auto overflow-y-hidden whitespace-nowrap no-scrollbar">
@@ -131,7 +128,7 @@ const DiscountedSection = () => {
                 <motion.div
                   initial="initial"
                   whileHover="hover"
-                  className="relative flex flex-col justify-between bg-dark shadow-lg px-4 w-[250px] md:w-[350px] h-[400px]"
+                  className="relative flex flex-col justify-between bg-gray-300 shadow-lg px-4 w-[250px] md:w-[350px] h-[400px]"
                 >
                   {/* PRODUCT IMAGE */}
                   <motion.div
@@ -164,19 +161,22 @@ const DiscountedSection = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="max-lg:mb-4"
                   >
-                    <p className="font-archivo text-mustard text-sm"> HOT</p>
+                    <p className="font-archivo font-bold text-filgreen text-sm">
+                      {" "}
+                      HOT
+                    </p>
 
-                    <h3 className="font-archivo text-light text-xl text-wrap tracking-wide">
+                    <h3 className="font-archivo text-dark text-xl text-wrap tracking-wide">
                       Anker Prime Charger (250W, 6 Ports, GaNPrime)
                     </h3>
-                    <p className="py-1 font-poppins text-mustard text-sm text-wrap">
+                    <p className="py-1 font-poppins text-gren text-sm text-wrap">
                       250W High-Efficiency Charger
                     </p>
                     <span className="flex gap-3 mb-2 py-1">
-                      <p className="font-poppins text-gray-400 line-through">
+                      <p className="font-poppins text-gray-500 line-through">
                         $30
                       </p>{" "}
-                      <p className="font-poppins text-light">$18</p>
+                      <p className="font-poppins text-dark">$18</p>
                     </span>
 
                     <motion.button
@@ -198,7 +198,7 @@ const DiscountedSection = () => {
                   href="/"
                   initial="initial"
                   whileHover="hover"
-                  className="relative flex flex-col justify-between bg-dark shadow-lg px-4 w-[250px] md:w-[300px] h-[350px]"
+                  className="relative flex flex-col justify-between bg-gray-300 shadow-lg px-4 w-[250px] md:w-[300px] h-[350px]"
                 >
                   {/* PRODUCT IMAGE */}
                   <motion.div
@@ -231,18 +231,19 @@ const DiscountedSection = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="max-lg:mb-4"
                   >
-                    <p className="font-archivo text-mustard text-sm"> HOT</p>
-                    <h3 className="font-archivo text-light text-xl text-wrap tracking-wide">
+                    <p className="font-archivo text-filgreen text-sm"> HOT</p>
+
+                    <h3 className="font-archivo text-dark text-xl text-wrap tracking-wide">
                       Anker Prime Charger (250W, 6 Ports, GaNPrime)
                     </h3>
-                    <p className="py-1 font-poppins text-mustard text-sm text-wrap">
+                    <p className="py-1 font-poppins text-gren text-sm text-wrap">
                       250W High-Efficiency Charger
                     </p>
                     <span className="flex gap-3 mb-2 py-1">
-                      <p className="font-poppins text-gray-400 line-through">
+                      <p className="font-poppins text-gray-500 line-through">
                         $30
                       </p>{" "}
-                      <p className="font-poppins text-light">$18</p>
+                      <p className="font-poppins text-dark">$18</p>
                     </span>
                   </motion.div>
                 </motion.a>
@@ -255,4 +256,4 @@ const DiscountedSection = () => {
   );
 };
 
-export default DiscountedSection;
+export default MustHaveSection;

@@ -12,8 +12,11 @@
   --color-moss: #576238;
   --color-mustard: #ffd95d;
   --color-light: #f3f4f6;
-
   --color-dark: #181818;
+  --color-gren: #0d542b;
+  --color-filgreen: #1cc874;
+  --color-filred: #cc2936;
+  --color-filblue: #5386e4;
 
   /* SCREEN SIZES */
   --breakpoint-xs: 400px;
