@@ -17,6 +17,7 @@
   --color-filgreen: #1cc874;
   --color-filred: #cc2936;
   --color-filblue: #5386e4;
+  --color-filgrey: #99a1af;
 
   /* SCREEN SIZES */
   --breakpoint-xs: 400px;
@@ -24,9 +25,6 @@
 }
 
 /* REUSABLE STYLE */
-.my-button {
-  @apply bg-blue-500 px-4 py-2 rounded text-white;
-}
 
 .buttons {
   @apply bg-green-800 hover:bg-mustard px-1 xs:px-3 py-1 xs:py-3 font-poppins text-light hover:text-dark text-xs xs:text-sm;

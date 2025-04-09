@@ -7,10 +7,13 @@ import DiscountedSection from "../components/DiscountedSection";
 import Device from "../components/Device";
 import MustHaveSection from "./../components/MustHaveSection";
 import { ImageCarousel } from "./../components/ImageCarousel";
+import MemberSection from "./../components/MemberSection";
+import FansSection from "./../components/FansSections";
+import Footer from "./../components/Footer";
 
 const page = () => {
   return (
-    <div className="bg-light h-[10000px] overflow-x-hidden">
+    <div className="bg-light overflow-x-hidden">
       <Hero />
       <About />
       <ProductSection />
@@ -18,6 +21,9 @@ const page = () => {
       <Device />
       <MustHaveSection />
       <ImageCarousel />
+      <MemberSection />
+      <FansSection />
+      <Footer />
     </div>
   );
 };
