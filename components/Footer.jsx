@@ -35,17 +35,18 @@ const Footer = () => {
   return (
     <footer className="bg-black pb-10 text-light">
       <div className="relative">
-        <div className="h-[500px] overflow-hidden">
-          <Image
-            src="/FIL Rebrand new_page-0002.jpg"
-            width={1920}
-            height={1080}
-            alt="fil"
-            className="brightness-50 object-contain"
-          />
-        </div>
+        <Image
+          src="/FIL Rebrand new_page-0002.jpg"
+          width={1920}
+          height={1080}
+          alt="fil"
+          className="brightness-50 object-contain"
+        />
+
         <div className="top-1/2 left-1/2 absolute text-center -translate-x-1/2 -translate-y-1/2">
-          <p className="mb-4 text-light text-4xl">Think Fil, Think Quality</p>
+          <p className="mb-4 font-bold text-white text-2xl sm:text-5xl">
+            Think Fil, Think Quality
+          </p>
           <Link
             className="text-light"
             href=""
@@ -56,7 +57,7 @@ const Footer = () => {
       </div>
 
       {/* FOOTER DESC */}
-      <p className="mx-20 py-10 border-gray-400 border-b text-filgrey text-xs text-center">
+      <p className="mx-5 md:mx-10 lg:mx-20 py-5 sm:py-10 border-gray-400 border-b text-filgrey text-xs text-center">
         At FIL, we take pride in offering quality products at unbeatable prices,
         making us the go-to destination for anyone who values quality.(Think
         quality, think FIL)
@@ -64,10 +65,10 @@ const Footer = () => {
 
       {/* FOOTER SUBSCRIPTION */}
       <div className="place-items-center py-10 text-center">
-        <p className="text-xl">
+        <p className="text-sm sm:text-xl">
           Subscribe now to get a gift with your first order!
         </p>
-        <h3 className="mt-2 mb-8 font-semibold text-white text-4xl">
+        <h3 className="mx-3 mt-2 mb-8 font-semibold text-white text-2xl sm:text-4xl">
           Get an Exclusive 15% Off Your First Purchase
         </h3>
 
