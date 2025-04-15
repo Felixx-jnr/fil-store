@@ -1,32 +1,7 @@
-import { connectDB } from "@/lib/db";
-import User from "@/models/User";
-import bcrypt from "bcryptjs";
 import { requireAuth } from "@/middlewares/authMiddleware";
+import { updateProfile } from "@/controllers/userController";
 
 export const PUT = requireAuth(async (req, user) => {
-  await connectDB();
-  const { email, username, dob, country, phone, password } = await req.json();
-
-  const updateData = { email, username, dob, country, phone, password };
-
-  if (password) {
-    const salt = bcrypt.genSaltSync(10);
-    updateData.password = bcrypt.hashSync(password, salt);
-  }
-
-  const updatedUser = await User.findByIdAndUpdate(user.id, updateData, {
-    new: true,
-  });
-
-  return Response.json({
-    message: "Profile updated successfully",
-    user: {
-      email: updatedUser.email || user.email,
-      username: updatedUser.username || user.username,
-      dob: updatedUser.dob || user.dob,
-      country: updatedUser.country || user.country,
-      phone: updatedUser.phone || user.phone,
-      password: updatedUser.password || user.password,
-    },
-  });
+  const result = await updateProfile(req, user);
+  return Response.json(result);
 });
