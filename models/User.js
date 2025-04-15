@@ -36,6 +36,16 @@ const userSchema = new mongoose.Schema(
     country: {
       type: String,
     },
+
+    isVerified: { type: Boolean, default: false },
+
+    verificationCode: String,
+
+    verificationCodeExpiry: Date,
+
+    resetPasswordCode: String,
+
+    resetPasswordExpiry: Date,
   },
   { timestamps: true }
 );
