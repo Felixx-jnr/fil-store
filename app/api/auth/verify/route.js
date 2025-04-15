@@ -1,6 +1,7 @@
 import { connectDB } from "@/lib/db";
 import PendingVerification from "@/models/PendingVerification";
 import User from "@/models/User";
+import { sendEmail } from "@/lib/mailer";
 
 export async function POST(req) {
   await connectDB();
@@ -35,6 +36,13 @@ export async function POST(req) {
     password: pending.hashedPassword,
     isVerified: true,
   });
+
+  // Send success email
+  await sendEmail(
+    email,
+    "Welcome to Fil Store 🎉",
+    `Hi there! Your email has been successfully verified. You can now login and enjoy all our features.`
+  );
 
   // Remove pending verification record
   await PendingVerification.deleteOne({ email });
