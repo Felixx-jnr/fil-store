@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.6.1",
+    "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
+    "cookie": "^1.0.2",
     "framer-motion": "^12.5.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.483.0",

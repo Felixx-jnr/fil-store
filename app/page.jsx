@@ -9,7 +9,6 @@ import MustHaveSection from "./../components/MustHaveSection";
 import { ImageCarousel } from "./../components/ImageCarousel";
 import MemberSection from "./../components/MemberSection";
 import FansSection from "./../components/FansSections";
-import Footer from "./../components/Footer";
 
 const page = () => {
   return (
@@ -23,7 +22,6 @@ const page = () => {
       <ImageCarousel />
       <MemberSection />
       <FansSection />
-      <Footer />
     </div>
   );
 };
