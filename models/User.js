@@ -36,6 +36,9 @@ const userSchema = new mongoose.Schema(
     country: {
       type: String,
     },
+
+    resetPasswordCode: { type: String },
+    resetPasswordExpiry: { type: Date },
   },
   { timestamps: true }
 );
