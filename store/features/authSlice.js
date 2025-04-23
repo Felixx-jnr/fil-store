@@ -1,26 +1,40 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Fetch logged-in user via /api/auth/me
+// Fetch current user info
 export const fetchUser = createAsyncThunk(
   "auth/fetchUser",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await fetch("/api/auth/me", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const res = await fetch("/api/auth/me");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      return data.user;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Update user details
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const res = await fetch("/api/auth/update-profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || "Failed to fetch user");
+        throw new Error(data.message || "Update failed");
       }
 
-      return data.user;
-    } catch (error) {
-      return rejectWithValue(error.message);
+      return data.user; // Expect updated user from backend
+    } catch (err) {
+      return rejectWithValue(err.message);
     }
   }
 );
@@ -30,6 +44,7 @@ const initialState = {
   isAuthenticated: false,
   isLoading: false,
   error: null,
+  updateMessage: null,
 };
 
 const authSlice = createSlice({
@@ -40,6 +55,7 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
       state.error = null;
+      state.updateMessage = null;
     },
   },
   extraReducers: (builder) => {
@@ -57,6 +73,21 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
         state.isAuthenticated = false;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true; // Or a separate `isUpdating` state
+        state.error = null;
+        state.updateMessage = null;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false; // Or `isUpdating` to false
+        state.user = { ...state.user, ...action.payload }; // Ensure new object reference
+        state.updateMessage = "Profile updated successfully!"; // Optional success message
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false; // Or `isUpdating` to false
+        state.error = action.payload;
+        state.updateMessage = null;
       });
   },
 });

@@ -1,37 +1,87 @@
 "use client";
-import { useEffect } from "react";
+
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser, clearUser } from "@/store/features/authSlice";
+import { fetchUser, updateUser } from "@/store/features/authSlice";
 import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
-  const router = useRouter();
   const { user, isLoading, error } = useSelector((state) => state.auth);
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    phone: "",
+    address: "",
+    dob: "",
+    country: "",
+  });
 
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
 
-  const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    dispatch(clearUser());
-    router.push("/login");
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        username: user.username || "",
+        phone: user.phone || "",
+        address: user.address || "",
+        dob: user.dob || "",
+        country: user.country || "",
+      });
+    }
+  }, [user]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = async () => {
+    await dispatch(updateUser(formData));
+    dispatch(fetchUser());
+    setIsEditing(false);
   };
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Not authenticated</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-    <div>
-      <h2>Welcome, {user?.username}</h2>
-      <h2>Welcome, {user?.email}</h2>
-      <h2>Welcome, {user?.phone}</h2>
-      <h2>Welcome, {user?.address}</h2>
-      <h2>Welcome, {user?.dob}</h2>
-      <h2>Welcome, {user?.country}</h2>
-      <h2>Welcome, {user?.role}</h2>
-      <button onClick={handleLogout}>Logout</button>
+    <div className="mx-auto p-4 max-w-xl">
+      <h1 className="mb-4 font-bold text-2xl">Profile Page</h1>
+      {Object.entries(formData).map(([key, value]) => (
+        <div
+          className="mb-4"
+          key={key}
+        >
+          <label className="block font-medium capitalize">{key}</label>
+          <input
+            type="text"
+            name={key}
+            value={value}
+            onChange={handleChange}
+            disabled={!isEditing}
+            className="p-2 border border-gray-300 rounded w-full"
+          />
+        </div>
+      ))}
+      {!isEditing ? (
+        <button
+          onClick={() => setIsEditing(true)}
+          className="bg-blue-600 px-4 py-2 rounded text-white"
+        >
+          Edit Profile
+        </button>
+      ) : (
+        <button
+          onClick={handleSave}
+          className="bg-green-600 px-4 py-2 rounded text-white"
+        >
+          Save Changes
+        </button>
+      )}
     </div>
   );
 }
