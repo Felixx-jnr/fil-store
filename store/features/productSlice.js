@@ -11,7 +11,9 @@ export const getAllProducts = createAsyncThunk(
   "products/getAll",
   fetchAllProducts
 );
+
 export const getProduct = createAsyncThunk("products/getOne", fetchProductById);
+
 export const addProduct = createAsyncThunk("products/create", createProduct);
 export const editProduct = createAsyncThunk(
   "products/update",

@@ -1,48 +1,76 @@
-import {connectDB} from "@/lib/db";
+import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
+import { NextResponse } from "next/server";
+import mongoose from "mongoose";
 
 // GET SINGLE PRODUCT
 export async function GET(req, { params }) {
+  const { id } = params;
+
   try {
     await connectDB();
-    const product = await Product.findById(params.id);
-    if (!product) {
-      return Response.json({ message: "Product not found" }, { status: 404 });
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { message: "Invalid product ID" },
+        { status: 400 }
+      );
     }
-    return Response.json(product);
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return NextResponse.json(
+        { message: "Product not found" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json(product);
   } catch (error) {
-    return Response.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
 
 // UPDATE PRODUCT
-export async function PUT(req, { params }) {
+export async function PUT(req, {params}) {
+  
+  const { id } = params;
+
   try {
     await connectDB();
     const body = await req.json();
-    const updatedProduct = await Product.findByIdAndUpdate(params.id, body, {
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, body, {
       new: true,
     });
 
     if (!updatedProduct) {
-      return Response.json({ message: "Product not found" }, { status: 404 });
+      return NextResponse.json(
+        { message: "Product not found" },
+        { status: 404 }
+      );
     }
-    return Response.json(updatedProduct);
+    return NextResponse.json(updatedProduct);
   } catch (error) {
-    return Response.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
 
 // DELETE PRODUCT
-export async function DELETE(req, { params }) {
+export async function DELETE(req, {params}) {
+  
+  const { id } = params;
   try {
     await connectDB();
-    const deletedProduct = await Product.findByIdAndDelete(params.id);
+
+    const deletedProduct = await Product.findByIdAndDelete(id);
     if (!deletedProduct) {
-      return Response.json({ message: "Product not found" }, { status: 404 });
+      return NextResponse.json(
+        { message: "Product not found" },
+        { status: 404 }
+      );
     }
-    return Response.json({ message: "Product deleted successfully" });
+    return NextResponse.json({ message: "Product deleted successfully" });
   } catch (error) {
-    return Response.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }

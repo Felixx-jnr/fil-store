@@ -35,13 +35,15 @@ const Footer = () => {
   return (
     <footer className="bg-black pb-10 text-light">
       <div className="relative">
-        <Image
-          src="/FIL Rebrand new_page-0002.jpg"
-          width={1920}
-          height={1080}
-          alt="fil"
-          className="brightness-50 object-contain"
-        />
+        <div className="h-[200px] sm:h-[400px] overflow-hidden">
+          <Image
+            src="/FIL Rebrand new_page-0002.jpg"
+            width={1920}
+            height={1080}
+            alt="fil"
+            className="brightness-50 w-full h-full object-cover"
+          />
+        </div>
 
         <div className="top-1/2 left-1/2 absolute text-center -translate-x-1/2 -translate-y-1/2">
           <p className="mb-4 font-bold text-white text-2xl sm:text-5xl">

@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "@/store/features/productSlice";
+import Link from "next/link";
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -16,7 +17,8 @@ export default function ProductList() {
   return (
     <div className="gap-4 grid grid-cols-2 md:grid-cols-4 p-4">
       {products.map((product) => (
-        <div
+        <Link
+          href={`/products/${product._id}`}
           key={product._id}
           className="shadow p-4 border rounded"
         >
@@ -27,7 +29,7 @@ export default function ProductList() {
           />
           <h2 className="font-bold text-lg">{product.name}</h2>
           <p>${product.price}</p>
-        </div>
+        </Link>
       ))}
     </div>
   );
