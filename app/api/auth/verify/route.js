@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/db";
-import PendingVerification from "@/models/PendingVerification";
+import PendingVerification from "../../../../models/PendingVerification";
 import User from "@/models/User";
 import { sendEmail } from "@/lib/mailer";
 
