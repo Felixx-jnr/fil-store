@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/db";
-import PendingVerification from "../../../../models/PendingVerification";
+import PendingVerification from "@/models/PendingVerification";
 import bcrypt from "bcryptjs";
 import { generateCode } from "@/lib/utils";
 import { sendEmail } from "@/lib/mailer";
