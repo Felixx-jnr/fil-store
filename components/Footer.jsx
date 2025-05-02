@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +13,7 @@ import { FaFacebookF } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoLogoTiktok } from "react-icons/io5";
+import { usePathname } from "next/navigation";
 
 const socials = [
   {
@@ -32,6 +35,15 @@ const socials = [
 ];
 
 const Footer = () => {
+  const pathname = usePathname();
+
+  const staticPaths = ["/register", "/login", "/verify", "/reset-password"];
+  const noNavigationMenu = staticPaths.includes(pathname);
+
+  if (noNavigationMenu) {
+    return null;
+  }
+
   return (
     <footer className="bg-black pb-10 text-light">
       <div className="relative">

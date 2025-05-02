@@ -3,7 +3,7 @@ import VerificationForm from "@/components/VerificationForm";
 
 const VerifyPage = () => {
   return (
-    <div>
+    <div className = "form-background">
       <VerificationForm />
     </div>
   );

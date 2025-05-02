@@ -6,6 +6,7 @@ import { BsPerson } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
 import { BsCart3 } from "react-icons/bs";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const homeLogo = [
   {
@@ -29,7 +30,7 @@ const homeLinks = [
   },
   {
     link: "Shop",
-    ref: "/products",
+    ref: "/shop",
   },
   {
     link: "About",
@@ -45,38 +46,47 @@ export default function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const pathname = usePathname();
+
+  const staticPaths = ["/register", "/login", "/verify", "/reset-password"];
+  const noNavigationMenu = staticPaths.includes(pathname);
+
+  if (noNavigationMenu) {
+    return null;
+  }
+
   // Handle scroll to add sticky effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 35);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setIsSticky(window.scrollY > 35);
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   // Prevent body scroll when menu is open
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-    }
+  // useEffect(() => {
+  //   if (menuOpen) {
+  //     document.body.classList.add("overflow-hidden");
+  //   } else {
+  //     document.body.classList.remove("overflow-hidden");
+  //   }
 
-    return () => document.body.classList.remove("overflow-hidden");
-  }, [menuOpen]);
+  //   return () => document.body.classList.remove("overflow-hidden");
+  // }, [menuOpen]);
 
   return (
     <nav className="w-full">
       {/* Top Section */}
-      {!menuOpen && (
+      {/* {!menuOpen && (
         <div className="bg-dark py-2 font-poppins text-light text-sm text-center">
           Free shipping on orders over 5k within Lagos🎉
         </div>
-      )}
+      )} */}
 
       {/* Second Section (Sticky Navbar) */}
       <div
-        className={` bg-green-900 text-light transition-all duration-300 py-1 ${
+        className={` w-full z-50 fixed top-0 left-0 bg-green-900 text-light transition-all duration-300 py-1 ${
           isSticky ? "fixed top-0 left-0 w-full z-50" : ""
         }`}
       >

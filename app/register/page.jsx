@@ -3,10 +3,11 @@ import RegistrationForm from "@/components/RegistrationForm";
 
 const RegisterPage = () => {
   return (
-    <div>
+    <div className="form-background">
       <RegistrationForm />
     </div>
   );
 };
 
 export default RegisterPage;
+

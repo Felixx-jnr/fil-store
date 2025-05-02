@@ -27,7 +27,7 @@
 /* REUSABLE STYLE */
 
 .buttons {
-  @apply bg-green-800 hover:bg-mustard px-1 xs:px-3 py-1 xs:py-3 font-poppins text-light hover:text-dark text-xs xs:text-sm;
+  @apply bg-green-800 hover:bg-mustard px-2 xs:px-3 py-2 xs:py-3 font-poppins text-light hover:text-dark text-xs xs:text-sm;
 }
 
 .home-stick {
@@ -48,3 +48,9 @@
     scrollbar-width: none; /* Firefox */
   }
 }
+
+.form-background {
+  background: linear-gradient(135deg, #40ec62, #1cc876, #40ec62);
+}
+
+
