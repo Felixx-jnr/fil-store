@@ -7,6 +7,8 @@ import { GoPerson } from "react-icons/go";
 import { IoIosLock } from "react-icons/io";
 import Loading from "@/components/Loading";
 import Link from "next/link";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -15,20 +17,52 @@ const RegistrationForm = () => {
     (state) => state.register
   );
 
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+      password: Yup.string()
+        .required("Password is required")
+        .min(6, "Password must be at least 6 characters")
+        .matches(/[A-Z]/, "Must contain an uppercase letter")
+        .matches(/[a-z]/, "Must contain a lowercase letter")
+        .matches(/\d/, "Must contain a number")
+        .matches(/[@$!%*?&#]/, "Must contain a special character"),
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(registerUserAsync(formData)).then((res) => {
+      confirmPassword: Yup.string()
+        .required("Please confirm your password")
+        .oneOf([Yup.ref("password")], "Passwords must match"),
+    }),
+    onSubmit: async (values) => {
+      const { email, password } = values;
+      const res = await dispatch(registerUserAsync({ email, password }));
       if (!res.error) {
-        dispatch(setEmail(formData.email));
+        dispatch(setEmail(email));
       }
-    });
-  };
+    },
+  });
+
+  // const [formData, setFormData] = useState({ email: "", password: "" });
+
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(registerUserAsync(formData)).then((res) => {
+  //     if (!res.error) {
+  //       dispatch(setEmail(formData.email));
+  //     }
+  //   });
+  // };
 
   // Navigate after registration
   useEffect(() => {
@@ -44,8 +78,9 @@ const RegistrationForm = () => {
           REGISTER
         </h1>
 
-        <form onSubmit={handleSubmit}>
-          <div className="my-4">
+        <form onSubmit={formik.handleSubmit}>
+          {/* email*/}
+          <div>
             <label
               className="font-semibold"
               htmlFor="email"
@@ -58,19 +93,24 @@ const RegistrationForm = () => {
                 <GoPerson className="text-gren text-2xl" />
               </span>
               <input
-                autoComplete="off"
-                name="email"
                 type="email"
+                name="email"
                 id="email"
-                onChange={handleChange}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
                 required
                 placeholder="Type your email"
                 className="block outline-0 w-full placeholder-filgrey"
               />
+              {formik.touched.email && formik.errors.email && (
+                <p className="text-red-500 text-sm">{formik.errors.email}</p>
+              )}
             </div>
           </div>
 
-          <div>
+          {/* password */}
+          <div className="my-5">
             <label
               className="font-semibold"
               htmlFor="password"
@@ -86,11 +126,49 @@ const RegistrationForm = () => {
                 name="password"
                 type="password"
                 id="password"
-                onChange={handleChange}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
                 required
                 placeholder="Type your password"
                 className="block outline-0 w-full placeholder-filgrey"
               />
+              {formik.touched.password && formik.errors.password && (
+                <p className="text-red-500 text-sm">{formik.errors.password}</p>
+              )}
+            </div>
+          </div>
+
+          {/* confirm password */}
+          <div>
+            <label
+              className="font-semibold"
+              htmlFor="confirmPassword"
+            >
+              Confirm Password
+            </label>
+
+            <div className="flex items-center gap-2 px-2 py-3 border-filgrey border-b">
+              <span>
+                <IoIosLock className="text-gren text-2xl" />
+              </span>
+              <input
+                name="confirmPassword"
+                type="password"
+                id="confirmPassword"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.confirmPassword}
+                required
+                placeholder="Comfirm your password"
+                className="block outline-0 w-full placeholder-filgrey"
+              />
+              {formik.touched.confirmPassword &&
+                formik.errors.confirmPassword && (
+                  <p className="text-red-500 text-sm">
+                    {formik.errors.confirmPassword}
+                  </p>
+                )}
             </div>
           </div>
 

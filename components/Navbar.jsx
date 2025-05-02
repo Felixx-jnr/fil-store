@@ -30,7 +30,7 @@ const homeLinks = [
   },
   {
     link: "Shop",
-    ref: "/shop",
+    ref: "/products",
   },
   {
     link: "About",
