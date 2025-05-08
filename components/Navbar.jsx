@@ -7,21 +7,8 @@ import { IoSearchOutline } from "react-icons/io5";
 import { BsCart3 } from "react-icons/bs";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-
-const homeLogo = [
-  {
-    link: <BsPerson />,
-    ref: "/profile",
-  },
-  {
-    link: <IoSearchOutline />,
-    ref: "/search",
-  },
-  {
-    link: <BsCart3 />,
-    ref: "/cart",
-  },
-];
+import ProfileTooltip from "./ProfileTooltip";
+import { useSelector } from "react-redux";
 
 const homeLinks = [
   {
@@ -43,6 +30,8 @@ const homeLinks = [
 ];
 
 export default function Navbar() {
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
   const [isSticky, setIsSticky] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -86,7 +75,7 @@ export default function Navbar() {
 
       {/* Second Section (Sticky Navbar) */}
       <div
-        className={` w-full z-50 fixed top-0 left-0 bg-green-900 text-light transition-all duration-300 py-1 ${
+        className={` w-full z-50 fixed top-0 left-0 bg-filgreen text-light transition-all duration-300 py-1 ${
           isSticky ? "fixed top-0 left-0 w-full z-50" : ""
         }`}
       >
@@ -99,21 +88,28 @@ export default function Navbar() {
                 width={82.5}
                 height={35.5}
                 alt="Fil"
-                src="/fillogo.png"
+                src="/fillogo-white.webp"
               />
             </Link>
 
+            {/* Desktop Menu */}
+            <div className="flex justify-between items-center mx-auto">
+              <ul className="hidden md:flex space-x-5 text-sm">
+                {homeLinks.map((link, index) => (
+                  <li key={index}>
+                    <Link
+                      href={link.ref}
+                      className="font-poppins hover:text-mustard"
+                    >
+                      {link.link}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <ul className="hidden md:flex space-x-4">
-              {homeLogo.map((link, index) => (
-                <li key={index}>
-                  <Link
-                    href={link.ref}
-                    className="font-extrabold hover:text-mustard text-xl"
-                  >
-                    {link.link}
-                  </Link>
-                </li>
-              ))}
+              <ProfileTooltip isAuthenticated={isAuthenticated} />
             </ul>
 
             {/* Mobile Menu Button */}
@@ -127,31 +123,6 @@ export default function Navbar() {
                 {menuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
             </div>
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="flex justify-between items-center mx-auto">
-            <ul className="hidden md:flex space-x-5 text-sm">
-              {homeLinks.map((link, index) => (
-                <li key={index}>
-                  <Link
-                    href={link.ref}
-                    className="font-poppins hover:text-mustard"
-                  >
-                    {link.link}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <ul className="hidden md:flex space-x-5 text-sm">
-              <li>
-                <p className="font-poppins hover:text-mustard">Support</p>
-              </li>
-              <li>
-                <p className="font-poppins hover:text-mustard">Explore</p>
-              </li>
-            </ul>
           </div>
         </div>
 

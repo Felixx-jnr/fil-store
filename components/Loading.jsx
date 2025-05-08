@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 
 const Loading = () => {
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="relative w-16 h-16">
+    <div className="flex justify-center items-center h-full">
+      <div className="relative w-8 h-8">
         {/* Grey static circle */}
-        <div className="absolute inset-0 rounded-full bg-gray-300" />
+        <div className="absolute inset-0 rounded-full" />
 
         {/* Green spinning circle */}
-        <div className="absolute inset-0 rounded-full border-4 border-t-green-500 border-transparent animate-spin" />
+        <div className="absolute inset-0 border-4 border-filgrey border-t-gren rounded-full animate-spin" />
       </div>
     </div>
   );
