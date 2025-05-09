@@ -1,7 +1,7 @@
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
 import { sendEmail } from "@/lib/mailer";
-import PendingVerification from "@/models/PendingVerification";
+import PendingVerification from "@/models/PendingVerification.js";
 
 export async function POST(req) {
   await connectDB();
