@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "@/store/features/productSlice";
 import { useParams } from "next/navigation";
+import Loading from "@/components/Loading"
 
 export default function ProductDetailsPage() {
   const { id } = useParams(); // fetches dynamic segment like /products/:id
@@ -20,12 +21,12 @@ export default function ProductDetailsPage() {
     }
   }, [dispatch, id]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return  <div className = "mt-[50px] py-4"> <Loading/> </div> ;
   if (error) return <p className="text-red-500">{error}</p>;
   if (!product) return <p>Product not found</p>;
 
   return (
-    <div className="p-6">
+    <div className="mt-[50px] py-5">
       <img
         src={product.image}
         alt={product.name}

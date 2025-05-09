@@ -75,7 +75,7 @@ export default function Navbar() {
 
       {/* Second Section (Sticky Navbar) */}
       <div
-        className={` w-full z-50 fixed top-0 left-0 bg-filgreen text-light transition-all duration-300 py-1 ${
+        className={` w-full z-50 fixed top-0 left-0 bg-filgreen text-light transition-all duration-300 ${
           isSticky ? "fixed top-0 left-0 w-full z-50" : ""
         }`}
       >

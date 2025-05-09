@@ -85,6 +85,9 @@ export default function LoginForm() {
               />
             </div>
           </div>
+
+          <Link className = "block text-right text-xs hover:underline hover:text-mustard mt-2" href="/reset-password">Forgot password</Link>
+
           <button
             type="submit"
             className="block mt-5 buttons"
