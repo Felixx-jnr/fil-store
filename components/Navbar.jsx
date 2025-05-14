@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { BsPerson } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
 import { BsCart3 } from "react-icons/bs";
 import Image from "next/image";
@@ -30,6 +29,9 @@ const homeLinks = [
 ];
 
 export default function Navbar() {
+  const cartItems = useSelector((state) => state.cart.items);
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   const [isSticky, setIsSticky] = useState(false);
@@ -40,39 +42,18 @@ export default function Navbar() {
   const staticPaths = ["/register", "/login", "/verify", "/reset-password"];
   const noNavigationMenu = staticPaths.includes(pathname);
 
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   if (noNavigationMenu) {
     return null;
   }
 
-  // Handle scroll to add sticky effect
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setIsSticky(window.scrollY > 35);
-  //   };
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
-  // Prevent body scroll when menu is open
-  // useEffect(() => {
-  //   if (menuOpen) {
-  //     document.body.classList.add("overflow-hidden");
-  //   } else {
-  //     document.body.classList.remove("overflow-hidden");
-  //   }
-
-  //   return () => document.body.classList.remove("overflow-hidden");
-  // }, [menuOpen]);
-
   return (
     <nav className="w-full">
-      {/* Top Section */}
-      {/* {!menuOpen && (
-        <div className="bg-dark py-2 font-poppins text-light text-sm text-center">
-          Free shipping on orders over 5k within Lagos🎉
-        </div>
-      )} */}
-
       {/* Second Section (Sticky Navbar) */}
       <div
         className={` w-full z-50 fixed top-0 left-0 bg-filgreen text-light transition-all duration-300 ${
@@ -108,12 +89,29 @@ export default function Navbar() {
               </ul>
             </div>
 
-            <ul className="hidden md:flex space-x-4">
+            <ul className="hidden md:flex md:items-center space-x-4">
               <ProfileTooltip isAuthenticated={isAuthenticated} />
+
+              <li>
+                <Link
+                  href="/cart"
+                  className="relative"
+                >
+                  <BsCart3 className="hover:text-mustard text-xl" />
+                  {hasMounted && totalItems > 0 && (
+                    <div className="-top-2 -right-2 absolute flex justify-center items-center bg-red-500 rounded-full w-5 h-5 text-white text-xs">
+                      {totalItems}
+                    </div>
+                  )}
+                </Link>
+              </li>
+
+              <IoSearchOutline className="text-xl" />
             </ul>
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center space-x-2">
+              <ProfileTooltip isAuthenticated={isAuthenticated} />
               <BsCart3 className="font-extralight hover:text-mustard text-2xl" />
               <IoSearchOutline className="hover:text-mustard text-2xl" />
               <button
