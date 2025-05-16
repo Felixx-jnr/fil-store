@@ -11,18 +11,20 @@ export default function VerifyPaymentPage() {
 
   const reference = searchParams.get("reference");
 
-  const { items: cartItems } = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.auth.user);
-
-  const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const cartItems = useSelector((state) => state.cart.items || []);
+  const user = useSelector((state) => state.auth.user || null);
 
   useEffect(() => {
     if (!reference || !cartItems.length) return;
 
-    // Fallbacks in case user isn't logged in
     const email = user?.email || localStorage.getItem("checkoutEmail");
     const address = user?.address || localStorage.getItem("checkoutAddress");
     const userId = user?._id || null;
+
+    const total = cartItems.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
 
     const verify = async () => {
       try {

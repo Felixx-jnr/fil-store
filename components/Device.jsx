@@ -74,7 +74,7 @@ const Device = () => {
                 </div>
 
                 <div className="bottom-0 left-0 absolute px-2 py-2 text-light">
-                  <h3 className="font-archivo font-semibold text-3xl">
+                  <h3 className="font-semibold text-3xl">
                     {dev.title}
                   </h3>
                   <p className="font-poppins">{dev.desc}</p>
@@ -102,7 +102,7 @@ const Device = () => {
                   />
                 </div>
                 <div className="bottom-0 left-0 absolute px-3 py-1 text-light">
-                  <h3 className="font-archivo font-semibold text-xl sm:text-3xl">
+                  <h3 className="font-semibold text-xl sm:text-3xl">
                     {dev.title}
                   </h3>
                   <p className="font-poppins max-sm:text-xs max-sm:tracking-tighter">

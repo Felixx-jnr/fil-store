@@ -69,7 +69,7 @@ export default function ProfilePage() {
 
   return (
     <div className="flex justify-center mt-[59px] p-10 form-background">
-      <div className="bg-white/40 shadow-2xl backdrop-blur-2xl p-5 rounded-2xl w-[95%] xs:w-[80%] md:w-[600px]">
+      <div className="bg-white/75 shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[80%] md:w-[600px]">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           Profile Page
         </h1>

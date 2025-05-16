@@ -68,7 +68,7 @@ const FansSection = () => {
   return (
     <section className="mt-16 pb-10">
       <div className="px-6 pt-5 pb-8">
-        <h2 className="font-archivo text-dark text-4xl md:text-5xl tracking-tighter">
+        <h2 className="text-dark text-4xl md:text-5xl tracking-tighter">
           STRAIGHT FROM OUR FANS
         </h2>
       </div>

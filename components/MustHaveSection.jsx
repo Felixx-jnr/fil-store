@@ -114,7 +114,7 @@ const MustHaveSection = () => {
   return (
     <section className="mt-16 pb-10">
       <div className="px-6 pt-5 pb-8">
-        <h2 className="font-archivo text-dark text-4xl md:text-5xl tracking-tighter">
+        <h2 className="text-dark text-4xl md:text-5xl tracking-tighter">
           MUST HAVE FIL SELECTION
         </h2>
       </div>
@@ -161,12 +161,12 @@ const MustHaveSection = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="max-lg:mb-4"
                   >
-                    <p className="font-archivo font-bold text-filgreen text-sm">
+                    <p className="font-bold text-filgreen text-sm">
                       {" "}
                       HOT
                     </p>
 
-                    <h3 className="font-archivo text-dark text-xl text-wrap tracking-wide">
+                    <h3 className="text-dark text-xl text-wrap tracking-wide">
                       Anker Prime Charger (250W, 6 Ports, GaNPrime)
                     </h3>
                     <p className="py-1 font-poppins text-gren text-sm text-wrap">
@@ -231,9 +231,9 @@ const MustHaveSection = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="max-lg:mb-4"
                   >
-                    <p className="font-archivo text-filgreen text-sm"> HOT</p>
+                    <p className="text-filgreen text-sm"> HOT</p>
 
-                    <h3 className="font-archivo text-dark text-xl text-wrap tracking-wide">
+                    <h3 className="text-dark text-xl text-wrap tracking-wide">
                       Anker Prime Charger (250W, 6 Ports, GaNPrime)
                     </h3>
                     <p className="py-1 font-poppins text-gren text-sm text-wrap">

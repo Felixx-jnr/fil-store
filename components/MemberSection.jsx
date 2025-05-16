@@ -114,10 +114,10 @@ const MemberSection = () => {
   return (
     <section className="bg-fixed mt-16 py-10 home-stick">
       <div className="px-6 py-10">
-        <h2 className="font-archivo text-light text-4xl md:text-5xl tracking-tighter">
+        <h2 className="text-light text-4xl md:text-5xl tracking-tighter">
           Become a Member Today
         </h2>
-        <p className="py-4 font-archivo text-mustard tracking-wider">
+        <p className="py-4 text-mustard tracking-wider">
           Gain early access to new products, exclusive deals, and opportunities
           to try our products for free.
         </p>
@@ -171,9 +171,9 @@ const MemberSection = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="max-lg:mb-4"
                   >
-                    <p className="font-archivo text-mustard text-sm"> HOT</p>
+                    <p className="text-mustard text-sm"> HOT</p>
 
-                    <h3 className="font-archivo text-light text-xl text-wrap tracking-wide">
+                    <h3 className="text-light text-xl text-wrap tracking-wide">
                       Anker Prime Charger (250W, 6 Ports, GaNPrime)
                     </h3>
                     <p className="py-1 font-poppins text-mustard text-sm text-wrap">
@@ -238,8 +238,8 @@ const MemberSection = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="max-lg:mb-4"
                   >
-                    <p className="font-archivo text-mustard text-sm"> HOT</p>
-                    <h3 className="font-archivo text-light text-xl text-wrap tracking-wide">
+                    <p className="text-mustard text-sm"> HOT</p>
+                    <h3 className="text-light text-xl text-wrap tracking-wide">
                       Anker Prime Charger (250W, 6 Ports, GaNPrime)
                     </h3>
                     <p className="py-1 font-poppins text-mustard text-sm text-wrap">

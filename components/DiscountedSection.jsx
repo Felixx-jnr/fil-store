@@ -114,10 +114,10 @@ const DiscountedSection = () => {
   return (
     <section className="bg-fixed mt-16 pb-10 home-stick">
       <div className="px-6 pt-5 pb-8">
-        <h2 className="font-archivo text-light text-4xl md:text-5xl tracking-tighter">
+        <h2 className="font-semibold text-light text-4xl md:text-5xl">
           DISCOUNTED PRODUCTS
         </h2>
-        <p className="font-archivo text-mustard tracking-wider">
+        <p className="text-mustard">
           Get the best products at the best prices
         </p>
       </div>
@@ -164,9 +164,9 @@ const DiscountedSection = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="max-lg:mb-4"
                   >
-                    <p className="font-archivo text-mustard text-sm"> HOT</p>
+                    <p className="text-mustard text-sm"> HOT</p>
 
-                    <h3 className="font-archivo text-light text-xl text-wrap tracking-wide">
+                    <h3 className="text-light text-xl text-wrap tracking-wide">
                       Anker Prime Charger (250W, 6 Ports, GaNPrime)
                     </h3>
                     <p className="py-1 font-poppins text-mustard text-sm text-wrap">
@@ -231,8 +231,8 @@ const DiscountedSection = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="max-lg:mb-4"
                   >
-                    <p className="font-archivo text-mustard text-sm"> HOT</p>
-                    <h3 className="font-archivo text-light text-xl text-wrap tracking-wide">
+                    <p className="text-mustard text-sm"> HOT</p>
+                    <h3 className="text-light text-xl text-wrap">
                       Anker Prime Charger (250W, 6 Ports, GaNPrime)
                     </h3>
                     <p className="py-1 font-poppins text-mustard text-sm text-wrap">

@@ -37,7 +37,7 @@ export default function ProductList() {
               />
             </div>
 
-            <h3 className="font-archivo text-light text-xl text-wrap tracking-wide">
+            <h3 className="text-light text-xl text-wrap tracking-wide">
               {product.name}
             </h3>
             <p className="py-1 font-poppins text-mustard text-sm text-wrap">
