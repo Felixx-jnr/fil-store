@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Providers } from "./providers";
+import AuthInitializer from "./AuthInitializer";
 
 export const metadata = {
   title: "Fil Store",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="font-poppins">
         <Providers>
+           <AuthInitializer />
           <Navbar />
           {children}
           <Footer />

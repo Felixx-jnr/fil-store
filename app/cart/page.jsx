@@ -1,7 +1,7 @@
 // app/cart/page.jsx
 "use client";
 
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -9,6 +9,7 @@ import {
   updateQuantity,
   clearCart,
 } from "@/store/features/cartSlice";
+import Link from "next/link";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -89,6 +90,13 @@ const CartPage = () => {
             <div className="font-semibold text-lg">
               Total: ${total.toFixed(2)}
             </div>
+            <Link
+              href="/checkout"
+              className="buttons"
+            >
+              {" "}
+              Proceed
+            </Link>
           </div>
         </>
       )}
