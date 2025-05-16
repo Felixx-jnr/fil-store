@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BsPerson } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
+import LogoutButton from "@/components/LogoutButton";
 import { useState } from "react";
 
 const ProfileTooltip = () => {
@@ -43,7 +44,7 @@ const ProfileTooltip = () => {
                   View Profile
                 </Link>
                 <Link
-                  href="/orders"
+                  href="/profile/orders"
                   className="block text-filgreen hover:text-mustard hover:underline"
                 >
                   My Orders
@@ -61,9 +62,9 @@ const ProfileTooltip = () => {
                   Wishlist
                 </Link>
 
-                <button className="w-full text-red-500 text-left hover:underline">
-                  Logout
-                </button>
+                <div className="w-full text-red-500 text-left hover:underline">
+                  <LogoutButton />
+                </div>
               </div>
             ) : (
               <div className="space-y-3 text-lg">
