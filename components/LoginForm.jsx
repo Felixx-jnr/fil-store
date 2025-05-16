@@ -52,7 +52,6 @@ export default function LoginForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={handleEmailKeyDown}
-                autoComplete="off"
                 name="email"
                 type="email"
                 id="email"
@@ -86,13 +85,15 @@ export default function LoginForm() {
             </div>
           </div>
 
-          <Link
-            className="inline-block mt-2 hover:text-mustard text-xs text-right hover:underline"
-            href="/reset-password"
-          >
-            Forgot password
-          </Link>
-
+          <div className = " mt-2 flex justify-end" >
+            <Link
+              className="hover:text-gren text-xs hover:underline"
+              href="/reset-password"
+            >
+              Forgot password
+            </Link>
+          </div>
+          
           <button
             type="submit"
             className="block mt-5 buttons"
@@ -104,7 +105,7 @@ export default function LoginForm() {
           Or{" "}
           <Link
             href="/register"
-            className="hover:text-mustard underline"
+            className="hover:text-gren underline"
           >
             Register
           </Link>{" "}
