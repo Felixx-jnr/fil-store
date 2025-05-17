@@ -2,6 +2,7 @@ import { connectDB } from "@/lib/db";
 import Order from "@/models/Order";
 import { verifyPayment } from "@/lib/paystack"; // You should have this helper to verify Paystack transaction
 import { verifyToken } from "@/lib/auth";
+import { sendEmail } from "@/lib/mailer";
 
 export async function POST(req) {
   await connectDB();
@@ -54,6 +55,27 @@ export async function POST(req) {
     });
 
     // You may optionally send confirmation emails here
+    const itemList = cartItems
+      .map((item) => `- ${item.name} × ${item.quantity} — $${item.price}`)
+      .join("\n");
+
+    const emailText = `
+      Thank you for your purchase!
+
+      Order ID: ${order._id}
+      Status: ${order.status}
+      Address: ${address}
+      Total: $${total}
+
+      Items:${itemList}`.trim();
+
+    const adminEmail = process.env.ADMIN_EMAIL;
+
+    await Promise.all([
+      sendEmail(email, "Your Order Confirmation - Fil Store", emailText),
+      sendEmail(adminEmail, `New Order from ${email}`, emailText),
+    ]);
+
 
     return new Response(JSON.stringify({ message: "Order saved", order }), {
       status: 200,
