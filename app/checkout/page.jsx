@@ -14,6 +14,7 @@ export default function CheckoutPage() {
     name: "",
     email: "",
     address: "",
+    phone: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -31,6 +32,7 @@ export default function CheckoutPage() {
           name: user.name || "",
           email: user.email || "",
           address: user.address || "",
+          phone: user.phone || "",
         });
         setLoading(false);
       } else {
@@ -47,8 +49,8 @@ export default function CheckoutPage() {
             },
           });
 
-          const { name, email, address } = res.data.user;
-          setUserData({ name, email, address });
+          const { name, email, address, phone } = res.data.user;
+          setUserData({ name, email, address, phone });
         } catch (err) {
           console.error("Failed to fetch user:", err);
         } finally {
@@ -67,7 +69,7 @@ export default function CheckoutPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!userData.name || !userData.email || !userData.address) {
+    if (!userData.name || !userData.email || !userData.address || !userData.phone) {
       alert("Please fill in all fields");
       return;
     }
@@ -134,6 +136,17 @@ export default function CheckoutPage() {
           className="p-2 border rounded w-full"
           required
         />
+
+        <input
+          name="phone"
+          type="phone"
+          placeholder="Phone"
+          value={userData.phone}
+          onChange={handleChange}
+          className="p-2 border rounded w-full"
+          required
+        />
+
         <textarea
           name="address"
           placeholder="Delivery Address"

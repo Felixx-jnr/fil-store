@@ -42,13 +42,14 @@ export async function POST(req) {
     }
 
     // Extract metadata from the payment (where you stored userData & cartItems)
-    const { cartItems, address, email, total } = paymentData.metadata;
+    const { cartItems, address, phone, email, total } = paymentData.metadata;
 
     // Step 2: Save order to DB
     const order = await Order.create({
       userId: user?.id || null,
       email,
       address,
+      phone,
       items: cartItems,
       total,
       status: "Processing",
@@ -65,6 +66,8 @@ export async function POST(req) {
       Order ID: ${order._id}
       Status: ${order.status}
       Address: ${address}
+      Email: ${email}
+      Phone: ${phone}
       Total: $${total}
 
       Items:${itemList}`.trim();
@@ -75,7 +78,6 @@ export async function POST(req) {
       sendEmail(email, "Your Order Confirmation - Fil Store", emailText),
       sendEmail(adminEmail, `New Order from ${email}`, emailText),
     ]);
-
 
     return new Response(JSON.stringify({ message: "Order saved", order }), {
       status: 200,

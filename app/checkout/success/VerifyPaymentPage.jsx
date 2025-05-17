@@ -24,6 +24,7 @@ export default function VerifyPaymentPage() {
 
     const email = user?.email || localStorage.getItem("checkoutEmail");
     const address = user?.address || localStorage.getItem("checkoutAddress");
+    const phone = user?.phone || localStorage.getItem("checkoutPhone");
     const userId = user?._id || null;
 
     const total = cartItems.reduce(
@@ -37,6 +38,7 @@ export default function VerifyPaymentPage() {
           reference,
           userId,
           email,
+          phone,
           address,
           items: cartItems,
           total,
