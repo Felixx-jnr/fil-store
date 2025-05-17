@@ -19,13 +19,10 @@ const homeLinks = [
     ref: "/products",
   },
   {
-    link: "About",
-    ref: "/about",
+    link: "Track",
+    ref: "/track",
   },
-  {
-    link: "Contact",
-    ref: "/contact",
-  },
+  
 ];
 
 export default function Navbar() {
