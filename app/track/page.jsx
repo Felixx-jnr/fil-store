@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
+import OrderProgressBar from "@/components/OrderTracking";
 
 export default function TrackOrderPage() {
   const [orderId, setOrderId] = useState("");
@@ -21,7 +22,8 @@ export default function TrackOrderPage() {
       setOrder(res.data.order);
     } catch (err) {
       setError(
-        err.response?.data?.message || "Unable to fetch order. Please try again."
+        err.response?.data?.message ||
+          "Unable to fetch order. Please try again."
       );
     } finally {
       setLoading(false);
@@ -29,8 +31,8 @@ export default function TrackOrderPage() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Track Your Order</h2>
+    <div className="mx-auto p-4 max-w-xl">
+      <h2 className="mb-4 font-bold text-2xl">Track Your Order</h2>
 
       <div className="flex gap-2 mb-4">
         <input
@@ -38,11 +40,11 @@ export default function TrackOrderPage() {
           placeholder="Enter Order ID"
           value={orderId}
           onChange={(e) => setOrderId(e.target.value)}
-          className="flex-1 border p-2 rounded"
+          className="flex-1 p-2 border rounded"
         />
         <button
           onClick={fetchOrder}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+          className="bg-blue-600 px-4 py-2 rounded text-white"
         >
           {loading ? "Searching..." : "Track"}
         </button>
@@ -51,12 +53,12 @@ export default function TrackOrderPage() {
       {error && <p className="text-red-600">{error}</p>}
 
       {order && (
-        <div className="border p-4 rounded shadow space-y-2">
+        <div className="space-y-2 shadow p-4 border rounded">
           <h3 className="font-semibold text-lg">Order #{order._id}</h3>
-          <p>Status: <span className="text-blue-600 font-medium">{order.status}</span></p>
+          <OrderProgressBar currentStatus={order.status} />
           <p>Placed on: {new Date(order.createdAt).toLocaleDateString()}</p>
           <p>Total: ${order.total}</p>
-          <ul className="list-disc list-inside text-sm">
+          <ul className="text-sm list-disc list-inside">
             {order.items.map((item, i) => (
               <li key={i}>
                 {item.name} × {item.quantity} — ${item.price}
