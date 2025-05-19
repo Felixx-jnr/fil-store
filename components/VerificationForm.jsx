@@ -35,7 +35,7 @@ const VerificationForm = () => {
 
   return (
     <div className="relative h-screen">
-      <div className="top-1/2 left-1/2 absolute bg-white/75 shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[80%] md:w-[600px] -translate-x-1/2 -translate-y-1/2">
+      <div className="top-1/2 left-1/2 absolute bg-white shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[80%] md:w-[600px] -translate-x-1/2 -translate-y-1/2">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           VERIFY YOUR MAIL
         </h1>
@@ -75,9 +75,9 @@ const VerificationForm = () => {
                 <IoIosLock className="text-gren text-2xl" />
               </span>
               <input
-              autoComplete="off"
+                autoComplete="off"
                 type="text"
-                id = "code"
+                id="code"
                 placeholder="Enter verification code"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
@@ -99,15 +99,15 @@ const VerificationForm = () => {
         </form>
 
         <div className="mt-10 text-center">
-                  Or{" "}
-                  <Link
-                    href="/login"
-                    className="hover:text-mustard underline"
-                  >
-                    Login
-                  </Link>{" "}
-                  If you have an account already
-                </div>
+          Or{" "}
+          <Link
+            href="/login"
+            className="hover:text-mustard underline"
+          >
+            Login
+          </Link>{" "}
+          If you have an account already
+        </div>
       </div>
     </div>
   );

@@ -31,7 +31,7 @@ export default function LoginForm() {
 
   return (
     <div className="relative h-screen">
-      <div className="top-1/2 left-1/2 absolute bg-white/75 shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[80%] md:w-[600px] -translate-x-1/2 -translate-y-1/2">
+      <div className="top-1/2 left-1/2 absolute bg-white shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[80%] md:w-[600px] -translate-x-1/2 -translate-y-1/2">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           LOGIN
         </h1>
@@ -85,7 +85,7 @@ export default function LoginForm() {
             </div>
           </div>
 
-          <div className = " mt-2 flex justify-end" >
+          <div className=" mt-2 flex justify-end">
             <Link
               className="hover:text-gren text-xs hover:underline"
               href="/reset-password"
@@ -93,7 +93,7 @@ export default function LoginForm() {
               Forgot password
             </Link>
           </div>
-          
+
           <button
             type="submit"
             className="block mt-5 buttons"
