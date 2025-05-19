@@ -1,19 +1,35 @@
-import { verifyToken } from "../lib/auth";
+import { verifyToken } from "@/lib/auth";
 
 export function requireAuth(handler) {
   return async (req) => {
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    const user = verifyToken(token);
-    if (!user) return new Response("Unauthorized", { status: 401 });
+    try {
+      const token = req.cookies.get("token")?.value;
 
-    return handler(req, user);
+      if (!token) {
+        return new Response("Unauthorized: No token", { status: 401 });
+      }
+
+      const user = verifyToken(token);
+
+      if (!user) {
+        return new Response("Unauthorized: Invalid token", { status: 401 });
+      }
+
+      // Pass the user to the handler
+      return handler(req, user);
+    } catch (error) {
+      console.error("Auth error:", error);
+      return new Response("Unauthorized", { status: 401 });
+    }
   };
 }
 
 export function requireAdmin(handler) {
   return requireAuth(async (req, user) => {
-    if (user.role !== "admin")
-      return new Response("Forbidden", { status: 403 });
+    if (user.role !== "admin") {
+      return new Response("Forbidden: Admins only", { status: 403 });
+    }
+
     return handler(req, user);
   });
 }
