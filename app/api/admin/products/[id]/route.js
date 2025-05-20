@@ -3,7 +3,7 @@ import Product from "@/models/Product";
 import { requireAdmin } from "@/middlewares/authMiddleware";
 
 // Get single product by ID
-export const GET = requireAdmin(async (req, context, user) => {
+export const GET = requireAdmin(async (req, context) => {
   await connectDB();
   const { id } = context.params;
   const product = await Product.findById(id);
@@ -13,7 +13,7 @@ export const GET = requireAdmin(async (req, context, user) => {
 });
 
 //admin update product
-export const PUT = requireAdmin(async (req, context, user) => {
+export const PUT = requireAdmin(async (req, context) => {
   await connectDB();
   const { id } = context.params;
   const data = await req.json();
@@ -24,7 +24,7 @@ export const PUT = requireAdmin(async (req, context, user) => {
 });
 
 //admin delete product
-export const DELETE = requireAdmin(async (req, context, user) => {
+export const DELETE = requireAdmin(async (req, context) => {
   await connectDB();
 
   const { id } = context.params;
