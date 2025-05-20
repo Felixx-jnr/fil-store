@@ -2,6 +2,16 @@ import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 import { requireAdmin } from "@/middlewares/authMiddleware";
 
+// Get single product by ID
+export const GET = requireAdmin(async (req, context, user) => {
+  await connectDB();
+  const { id } = context.params;
+  const product = await Product.findById(id);
+  return product
+    ? Response.json(product)
+    : new Response("Not Found", { status: 404 });
+});
+
 //admin update product
 export const PUT = requireAdmin(async (req, context, user) => {
   await connectDB();

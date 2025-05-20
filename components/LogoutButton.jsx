@@ -1,16 +1,21 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "@/store/features/authSlice";
 
 const LogoutButton = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", {
-      method: "POST",
-    });
+    const result = await dispatch(logoutUser());
 
-    // Redirect to login page
-    router.push("/");
+    if (logoutUser.fulfilled.match(result)) {
+      router.push("/"); 
+    } else {
+      console.error("Logout failed:", result.payload);
+      
+    }
   };
 
   return (

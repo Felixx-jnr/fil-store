@@ -39,6 +39,23 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+// Logout thunk
+export const logoutUser = createAsyncThunk(
+  "auth/logoutUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await fetch("/api/auth/logout", { method: "POST" });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message);
+
+      return true;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
 const initialState = {
   user: null,
   isAuthenticated: false,
@@ -88,6 +105,15 @@ const authSlice = createSlice({
         state.isLoading = false; // Or `isUpdating` to false
         state.error = action.payload;
         state.updateMessage = null;
+      })
+       .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.isAuthenticated = false;
+        state.error = null;
+        state.updateMessage = null;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
