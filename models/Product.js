@@ -8,7 +8,17 @@ const productSchema = new mongoose.Schema(
     category: { type: String },
     image: { type: String },
     rating: { type: Number, default: 0 },
-    numReviews: { type: Number, default: 0 },
+    comments: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        text: { type: String, required: true },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   {
     timestamps: true,
