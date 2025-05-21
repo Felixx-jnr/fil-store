@@ -4,7 +4,7 @@ import { connectDB } from "@/lib/db";
 import User from "@/models/User";
 import Order from "@/models/Order";
 
-export const GET = requireAdmin(async (req) => {
+export const GET = requireAdmin(async () => {
   await connectDB();
 
   // Fetch all users
