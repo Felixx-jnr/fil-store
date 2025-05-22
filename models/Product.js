@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+const ratingSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  value: { type: Number, required: true, min: 1, max: 5 },
+});
+
 const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -7,7 +12,7 @@ const productSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     category: { type: String },
     image: { type: String },
-    rating: { type: Number, default: 0 },
+    ratings: [ratingSchema],
     comments: [
       {
         user: {
@@ -24,6 +29,15 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+productSchema.virtual("averageRating").get(function () {
+  if (this.ratings.length === 0) return 0;
+  const sum = this.ratings.reduce((acc, r) => acc + r.value, 0);
+  return sum / this.ratings.length;
+});
+
+productSchema.set("toObject", { virtuals: true });
+productSchema.set("toJSON", { virtuals: true });
 
 export default mongoose.models.Product ||
   mongoose.model("Product", productSchema);

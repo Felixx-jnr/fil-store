@@ -1,16 +1,18 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
-import {connectDB} from "@/lib/db";
+import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 
 export const POST = async (req, context) => {
   await connectDB(); // Connect to DB
 
-  const { id } = context.params; // Get product ID from route param
+  const { id } = await context.params;
 
   // Get JWT token from cookies
-  const token = cookies().get("token")?.value;
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
   if (!token) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -55,16 +57,23 @@ export const POST = async (req, context) => {
 export const GET = async (req, context) => {
   await connectDB();
 
-  const { id } = context.params;
+  const { params } = await context;
+  const { id } = await params;
 
   try {
-    const product = await Product.findById(id).populate("comments.user", "username");
+    const product = await Product.findById(id).populate(
+      "comments.user",
+      "username"
+    );
     if (!product)
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
 
     return NextResponse.json(product.comments, { status: 200 });
   } catch (err) {
     console.error("Error fetching comments:", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 };

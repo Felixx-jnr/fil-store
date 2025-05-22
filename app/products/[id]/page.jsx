@@ -7,6 +7,7 @@ import axios from "axios";
 import { getProduct } from "@/store/features/productSlice";
 import AddToCartButton from "@/components/AddToCart";
 import Loading from "@/components/Loading";
+import Rating from "@/components/Rating";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
@@ -84,6 +85,12 @@ export default function ProductDetailsPage() {
       <p className="mt-2 text-gray-700">{product.description}</p>
       <p className="mt-4 font-semibold text-xl">${product.price}</p>
       <AddToCartButton product={product} />
+
+      <Rating
+        productId={product._id}
+        initialAverage={product.averageRating}
+        userRating={product.userRating}
+      />
 
       {/* Comments Section */}
       <div className="mt-8">

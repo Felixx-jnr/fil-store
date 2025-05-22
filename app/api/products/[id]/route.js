@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 // GET SINGLE PRODUCT
-export async function GET(req, { params }) {
-  const { id } = params;
+export async function GET(req, context) {
+  const { id } = await context.params;
 
   try {
     await connectDB();
