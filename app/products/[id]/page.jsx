@@ -45,23 +45,34 @@ export default function ProductDetailsPage() {
 
   // Handle comment submission
   const handleSubmitComment = async (e) => {
-    e.preventDefault();
-    if (!commentText.trim()) return;
+  e.preventDefault();
+  if (!commentText.trim()) return;
 
-    try {
-      setSubmitting(true);
-      const res = await axios.post(`/api/products/${id}/comments`, {
-        text: commentText,
-      });
-      setComments((prev) => [...prev, res.data]);
-      setCommentText("");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to post comment. Please log in.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  try {
+    setSubmitting(true);
+    const res = await axios.post(`/api/products/${id}/comments`, {
+      text: commentText,
+    });
+
+    // Inject full user info manually (so UI doesn’t need to wait for refresh)
+    const fullComment = {
+      ...res.data,
+      user: {
+        _id: user._id,
+        username: user.username, // or use user.name
+      },
+    };
+
+    setComments((prev) => [...prev, fullComment]);
+    setCommentText("");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to post comment. Please log in.");
+  } finally {
+    setSubmitting(false);
+  }
+};
+
 
   if (loading) {
     return (
@@ -105,7 +116,7 @@ export default function ProductDetailsPage() {
               className="py-3 border-b"
             >
               <p className="font-semibold">
-                {comment.user?.username || comment.user || "Anonymous"}
+                {comment.user?.username || comment.user?.name || comment.user || "Anonymous"}
               </p>
               <p className="text-gray-700">{comment.text}</p>
               <p className="text-gray-400 text-xs">
