@@ -40,14 +40,17 @@ export async function POST(req, context) {
 
   await product.save();
 
-  const updatedProduct = await Product.findById(id).lean({ virtuals: true });
+  const updatedProduct = await Product.findById(id);
+  const sum = updatedProduct.ratings.reduce((acc, r) => acc + Number(r.value), 0);
+  const averageRating = sum / updatedProduct.ratings.length;
+
   const userRating = updatedProduct.ratings.find(
     (r) => r.user.toString() === decoded.id
   )?.value;
 
   return NextResponse.json({
     message: "Rating submitted successfully",
-    averageRating: updatedProduct.averageRating,
+    averageRating,
     userRating,
   });
 }
