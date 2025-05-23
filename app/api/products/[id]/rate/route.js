@@ -17,7 +17,7 @@ export async function POST(req, context) {
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
-    return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    return NextResponse.json({ err: "Invalid token" }, { status: 401 });
   }
 
   const { value } = await req.json();
@@ -41,7 +41,10 @@ export async function POST(req, context) {
   await product.save();
 
   const updatedProduct = await Product.findById(id);
-  const sum = updatedProduct.ratings.reduce((acc, r) => acc + Number(r.value), 0);
+  const sum = updatedProduct.ratings.reduce(
+    (acc, r) => acc + Number(r.value),
+    0
+  );
   const averageRating = sum / updatedProduct.ratings.length;
 
   const userRating = updatedProduct.ratings.find(
