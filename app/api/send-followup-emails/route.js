@@ -2,6 +2,10 @@ import { connectDB } from "@/lib/db";
 import Order from "@/models/Order";
 import { sendEmail } from "@/lib/mailer";
 
+export const config = {
+  schedule: "*/5 * * * *", // runs every day at 10 AM UTC
+};
+
 export async function GET(req) {
   await connectDB();
 
