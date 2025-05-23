@@ -6,7 +6,7 @@ export const config = {
   schedule: "*/5 * * * *", // runs every day at 10 AM UTC
 };
 
-export async function GET(req) {
+export async function GET() {
   await connectDB();
 
   try {
