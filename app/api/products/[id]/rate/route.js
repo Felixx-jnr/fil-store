@@ -16,8 +16,9 @@ export async function POST(req, context) {
   let decoded;
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
-  } catch (err) {
-    return NextResponse.json({ err: "Invalid token" }, { status: 401 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: "Invalid token" }, { status: 401 });
   }
 
   const { value } = await req.json();
@@ -69,7 +70,8 @@ export async function GET(req, context) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       userId = decoded.id;
-    } catch (err) {
+    } catch (error) {
+      console.error(error);
       // token invalid — ignore and continue anonymously
     }
   }
