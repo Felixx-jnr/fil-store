@@ -63,9 +63,9 @@ export default function VerifyPaymentPage() {
   }, [reference, cartItems, user]);
 
   return (
-    <p className="p-4">
-      {" "}
-      <Loading />{" "}
-    </p>
+    <div className="p-4">
+      
+      <Loading />
+    </div>
   );
 }

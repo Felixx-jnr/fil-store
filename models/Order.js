@@ -35,6 +35,10 @@ const orderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  followUpSent: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.models.Order || mongoose.model("Order", orderSchema);
