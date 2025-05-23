@@ -59,7 +59,7 @@ const Footer = () => {
 
         <div className="top-1/2 left-1/2 absolute text-center -translate-x-1/2 -translate-y-1/2">
           <p className="mb-4 font-bold text-white text-2xl sm:text-5xl">
-            Think Fil, Think Quality
+            Think FIL, Think Quality
           </p>
           <Link
             className="text-light"
@@ -98,7 +98,7 @@ const Footer = () => {
 
       {/* FOOTER SERVICES    */}
       <div className="mx-5 xs:mx-10 lg:mx-20 py-5 lg:py-10 border-filgrey border-t border-b">
-        <h2 className="mb-2 font-bold text-white">Buy on the Fil Store</h2>
+        <h2 className="mb-2 font-bold text-white">Buy on the FIL Store</h2>
         <div className="grid sm:grid-cols-2 text-sm">
           <div className="max-sm:mb-2">
             <div className="flex items-center gap-2 mb-2 text-filgrey">

@@ -28,7 +28,7 @@ export async function GET() {
       const emailText = `
 Hi ${order.email.split("@")[0]},
 
-It's been a week since you placed your order at Fil Store, and we'd love to know how it's going!
+It's been a week since you placed your order at FIL Store, and we'd love to know how it's going!
 
 If you have any feedback or questions, reply to this email or leave a review.
 
@@ -36,11 +36,11 @@ Your order:
 ${order.items.map((i) => `- ${i.name} × ${i.quantity}`).join("\n")}
 
 Thanks again for shopping with us!
-
-– The Fil Store Team
+F
+– The FIL Store Team
 `.trim();
 
-      await sendEmail(order.email, "How’s your Fil Store order?", emailText);
+      await sendEmail(order.email, "How’s your FIL Store order?", emailText);
 
       order.followUpSent = true;
       await order.save();
