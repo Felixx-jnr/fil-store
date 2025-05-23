@@ -22,6 +22,7 @@ export const POST = async (req, context) => {
   try {
     userData = jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: "Invalid token" }, { status: 401 });
   }
 
