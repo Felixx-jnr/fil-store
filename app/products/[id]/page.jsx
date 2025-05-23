@@ -99,8 +99,7 @@ export default function ProductDetailsPage() {
 
       <Rating
         productId={product._id}
-        initialAverage={product.averageRating}
-        userRating={product.userRating}
+       
       />
 
       {/* Comments Section */}

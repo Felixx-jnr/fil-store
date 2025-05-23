@@ -1,19 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import axios from "axios";
 
-export default function Rating({ productId, initialAverage, userRating }) {
-  const [userHasRated, setUserHasRated] = useState(!!userRating);
+export default function Rating({ productId }) {
+  const [userHasRated, setUserHasRated] = useState(false);
   const [hovered, setHovered] = useState(0);
-  const [average, setAverage] = useState(initialAverage || 0);
+  const [average, setAverage] = useState(0);
+  const [userRating, setUserRating] = useState(null);
+
+  useEffect(() => {
+    const fetchRating = async () => {
+      try {
+        const res = await axios.get(`/api/products/${productId}/rate`);
+        setAverage(res.data.averageRating || 0);
+        setUserRating(res.data.userRating);
+        setUserHasRated(!!res.data.userRating);
+      } catch (err) {
+        console.error("Error fetching rating:", err);
+      }
+    };
+
+    fetchRating();
+  }, [productId]);
 
   const handleRate = async (value) => {
     try {
       const res = await axios.post(`/api/products/${productId}/rate`, { value });
       setAverage(res.data.averageRating);
       setUserHasRated(true);
+      setUserRating(value);
     } catch (err) {
       console.error(err);
       alert("Please log in to rate.");
@@ -21,8 +38,10 @@ export default function Rating({ productId, initialAverage, userRating }) {
   };
 
   const renderStar = (index) => {
+    const effectiveRating = userHasRated ? average : hovered || userRating || 0;
+    const rounded = Math.round(effectiveRating * 2) / 2;
+
     if (userHasRated) {
-      const rounded = Math.round(average * 2) / 2; // e.g. 3.5
       if (rounded >= index) {
         return <FaStar key={index} className="text-yellow-500 text-xl" />;
       } else if (rounded + 0.5 === index) {
@@ -31,7 +50,7 @@ export default function Rating({ productId, initialAverage, userRating }) {
         return <FaRegStar key={index} className="text-gray-300 text-xl" />;
       }
     } else {
-      const isFilled = (hovered || userRating) >= index;
+      const isFilled = effectiveRating >= index;
       return (
         <FaStar
           key={index}
@@ -49,7 +68,7 @@ export default function Rating({ productId, initialAverage, userRating }) {
   return (
     <div className="flex items-center space-x-2 mt-4">
       {[1, 2, 3, 4, 5].map((i) => renderStar(i))}
-      <span className="text-gray-600 text-sm">({average.toFixed(1)} / 5)</span>
+      <span className="text-gray-600 text-sm">({Number(average).toFixed(1)} / 5)</span>
       {userHasRated && (
         <span className="ml-2 text-green-600 text-xs">You’ve rated this product</span>
       )}
