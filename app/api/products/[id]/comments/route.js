@@ -69,8 +69,8 @@ export const GET = async (req, context) => {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
 
     return NextResponse.json(product.comments, { status: 200 });
-  } catch (err) {
-    console.error("Error fetching comments:", err);
+  } catch (error) {
+    console.error("Error fetching comments:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
