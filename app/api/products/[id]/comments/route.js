@@ -21,8 +21,8 @@ export const POST = async (req, context) => {
   let userData;
   try {
     userData = jwt.verify(token, process.env.JWT_SECRET);
-  } catch (err) {
-    return NextResponse.json({ err: "Invalid token" }, { status: 401 });
+  } catch (error) {
+    return NextResponse.json({ error: "Invalid token" }, { status: 401 });
   }
 
   // Parse comment text from request body
