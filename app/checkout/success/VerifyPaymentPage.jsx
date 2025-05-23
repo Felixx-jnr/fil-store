@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "@/store/features/cartSlice";
 import axios from "axios";
+import Loading from "@/components/Loading";
 
 export default function VerifyPaymentPage() {
   const searchParams = useSearchParams();
@@ -47,7 +48,7 @@ export default function VerifyPaymentPage() {
         dispatch(clearCart());
         localStorage.removeItem("cart");
         alert("Payment successful and order saved!");
-        router.push("/profile/orders");
+        router.push("/feedback");
       } catch (err) {
         console.error(
           "Payment verification failed:",
@@ -61,5 +62,10 @@ export default function VerifyPaymentPage() {
     verify();
   }, [reference, cartItems, user]);
 
-  return <p className="p-4">Verifying payment...</p>;
+  return (
+    <p className="p-4">
+      {" "}
+      <Loading />{" "}
+    </p>
+  );
 }

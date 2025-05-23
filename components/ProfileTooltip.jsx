@@ -55,12 +55,7 @@ const ProfileTooltip = () => {
                 >
                   Track Orders
                 </Link>
-                <Link
-                  href="/wishlist"
-                  className="block text-filgreen hover:text-mustard hover:underline"
-                >
-                  Wishlist
-                </Link>
+                
 
                 <div className="w-full text-red-500 text-left hover:underline">
                   <LogoutButton />
