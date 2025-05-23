@@ -45,34 +45,33 @@ export default function ProductDetailsPage() {
 
   // Handle comment submission
   const handleSubmitComment = async (e) => {
-  e.preventDefault();
-  if (!commentText.trim()) return;
+    e.preventDefault();
+    if (!commentText.trim()) return;
 
-  try {
-    setSubmitting(true);
-    const res = await axios.post(`/api/products/${id}/comments`, {
-      text: commentText,
-    });
+    try {
+      setSubmitting(true);
+      const res = await axios.post(`/api/products/${id}/comments`, {
+        text: commentText,
+      });
 
-    // Inject full user info manually (so UI doesn’t need to wait for refresh)
-    const fullComment = {
-      ...res.data,
-      user: {
-        _id: user._id,
-        username: user.username, // or use user.name
-      },
-    };
+      // Inject full user info manually (so UI doesn’t need to wait for refresh)
+      const fullComment = {
+        ...res.data,
+        user: {
+          _id: user._id,
+          username: user.username, // or use user.name
+        },
+      };
 
-    setComments((prev) => [...prev, fullComment]);
-    setCommentText("");
-  } catch (err) {
-    console.error(err);
-    alert("Failed to post comment. Please log in.");
-  } finally {
-    setSubmitting(false);
-  }
-};
-
+      setComments((prev) => [...prev, fullComment]);
+      setCommentText("");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to post comment. Please log in.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -97,10 +96,7 @@ export default function ProductDetailsPage() {
       <p className="mt-4 font-semibold text-xl">${product.price}</p>
       <AddToCartButton product={product} />
 
-      <Rating
-        productId={product._id}
-       
-      />
+      <Rating productId={product._id} />
 
       {/* Comments Section */}
       <div className="mt-8">
@@ -115,7 +111,9 @@ export default function ProductDetailsPage() {
               className="py-3 border-b"
             >
               <p className="font-semibold">
-                {comment.user?.username || comment.user?.name || comment.user || "Anonymous"}
+                {typeof comment.user === "object"
+                  ? comment.user.username || comment.user.name || "User"
+                  : "User"}
               </p>
               <p className="text-gray-700">{comment.text}</p>
               <p className="text-gray-400 text-xs">
