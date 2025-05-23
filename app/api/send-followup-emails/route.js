@@ -3,7 +3,7 @@ import Order from "@/models/Order";
 import { sendEmail } from "@/lib/mailer";
 
 export const config = {
-  schedule: "*/5 * * * *", // runs every day at 10 AM UTC
+  schedule: "* 10 * * *", // runs every day at 10 AM UTC
 };
 
 export async function GET() {
@@ -12,17 +12,17 @@ export async function GET() {
   try {
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
-
-    // const orders = await Order.find({
-    //   createdAt: { $lte: sevenDaysAgo },
-    //   followUpSent: false,
-    // });
+    //const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
 
     const orders = await Order.find({
-      createdAt: { $lte: fiveMinutesAgo },
+      createdAt: { $lte: sevenDaysAgo },
       followUpSent: false,
     });
+
+    // const orders = await Order.find({
+    //   createdAt: { $lte: fiveMinutesAgo },
+    //   followUpSent: false,
+    // });
 
     for (const order of orders) {
       const emailText = `
