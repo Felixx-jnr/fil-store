@@ -8,6 +8,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import ProfileTooltip from "./ProfileTooltip";
 import { useSelector } from "react-redux";
+import { motion, AnimatePresence } from "framer-motion";
 
 const homeLinks = [
   {
@@ -22,7 +23,6 @@ const homeLinks = [
     link: "Track",
     ref: "/track",
   },
-  
 ];
 
 export default function Navbar() {
@@ -35,7 +35,6 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const pathname = usePathname();
-
   const staticPaths = ["/register", "/login", "/verify", "/reset-password"];
   const noNavigationMenu = staticPaths.includes(pathname);
 
@@ -45,20 +44,33 @@ export default function Navbar() {
     setHasMounted(true);
   }, []);
 
+  // Disable scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [menuOpen]);
+
   if (noNavigationMenu) {
     return null;
   }
 
   return (
     <nav className="w-full">
-      {/* Second Section (Sticky Navbar) */}
+      {/* Sticky Navbar */}
       <div
-        className={` w-full z-50 fixed top-0 left-0 bg-filgreen text-light transition-all duration-300 ${
+        className={`w-full z-50 fixed top-0 left-0 bg-filgreen text-light transition-all duration-300 ${
           isSticky ? "fixed top-0 left-0 w-full z-50" : ""
         }`}
       >
         <div className="px-6 sm:px-10 md:px-14 lg:px-28">
-          {/* LOGO AND BRAND-LOGOS */}
+          {/* LOGO */}
           <div className="flex justify-between items-center mx-auto">
             <Link href="/">
               <Image
@@ -86,14 +98,12 @@ export default function Navbar() {
               </ul>
             </div>
 
+            {/* Right Icons */}
             <ul className="hidden md:flex md:items-center space-x-4">
               <ProfileTooltip isAuthenticated={isAuthenticated} />
 
               <li>
-                <Link
-                  href="/cart"
-                  className="relative"
-                >
+                <Link href="/cart" className="relative">
                   <BsCart3 className="hover:text-mustard text-2xl" />
                   {hasMounted && totalItems > 0 && (
                     <div className="-top-2 -right-2 absolute flex justify-center items-center bg-red-500 rounded-full w-5 h-5 text-white text-xs">
@@ -109,10 +119,7 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center space-x-2">
               <ProfileTooltip isAuthenticated={isAuthenticated} />
-              <Link
-                href="/cart"
-                className="relative"
-              >
+              <Link href="/cart" className="relative">
                 <BsCart3 className="hover:text-mustard text-xl" />
                 {hasMounted && totalItems > 0 && (
                   <div className="-top-2 -right-2 absolute flex justify-center items-center bg-red-500 rounded-full w-5 h-5 text-white text-xs">
@@ -132,13 +139,22 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu */}
+         <AnimatePresence>
         {menuOpen && (
-          <div className="md:hidden relative bg-dark py-4 h-screen">
+          <motion.div
+          key="mobile-menu"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "100vh", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="md:hidden relative bg-dark py-4 h-screen"
+          >
             <ul className="top-1/2 left-1/2 absolute space-y-4 text-center -translate-x-1/2 -translate-y-1/2 transform">
               {homeLinks.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.ref}
+                    onClick={() => setMenuOpen(false)}
                     className="font-poppins hover:text-mustard"
                   >
                     {link.link}
@@ -146,8 +162,9 @@ export default function Navbar() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         )}
+         </AnimatePresence>
       </div>
     </nav>
   );
