@@ -94,7 +94,7 @@ export default function Navbar() {
                   href="/cart"
                   className="relative"
                 >
-                  <BsCart3 className="hover:text-mustard text-xl" />
+                  <BsCart3 className="hover:text-mustard text-2xl" />
                   {hasMounted && totalItems > 0 && (
                     <div className="-top-2 -right-2 absolute flex justify-center items-center bg-red-500 rounded-full w-5 h-5 text-white text-xs">
                       {totalItems}
@@ -103,13 +103,23 @@ export default function Navbar() {
                 </Link>
               </li>
 
-              <IoSearchOutline className="text-xl" />
+              <IoSearchOutline className="text-2xl" />
             </ul>
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center space-x-2">
               <ProfileTooltip isAuthenticated={isAuthenticated} />
-              <BsCart3 className="font-extralight hover:text-mustard text-2xl" />
+              <Link
+                href="/cart"
+                className="relative"
+              >
+                <BsCart3 className="hover:text-mustard text-xl" />
+                {hasMounted && totalItems > 0 && (
+                  <div className="-top-2 -right-2 absolute flex justify-center items-center bg-red-500 rounded-full w-5 h-5 text-white text-xs">
+                    {totalItems}
+                  </div>
+                )}
+              </Link>
               <IoSearchOutline className="hover:text-mustard text-2xl" />
               <button
                 className="hover:text-mustard"

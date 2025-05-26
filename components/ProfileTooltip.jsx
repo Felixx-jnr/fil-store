@@ -12,16 +12,16 @@ const ProfileTooltip = () => {
 
   return (
     <li
-      className="relative"
+      className="relative flex justify-center items-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link
+      <div
         href="/profile"
-        className="font-extrabold hover:text-mustard text-xl"
+        className="font-extrabold hover:text-mustard text-2xl"
       >
         <BsPerson />
-      </Link>
+      </div>
 
       <AnimatePresence>
         {isHovered && (
@@ -55,7 +55,6 @@ const ProfileTooltip = () => {
                 >
                   Track Orders
                 </Link>
-                
 
                 <div className="w-full text-red-500 text-left hover:underline">
                   <LogoutButton />
