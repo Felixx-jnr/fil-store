@@ -111,7 +111,7 @@ export default function ProductDetailsPage() {
               className="py-3 border-b"
             >
               <p className="font-semibold">
-                {typeof comment.user === "object"
+                {comment.user && typeof comment.user === "object"
                   ? comment.user.username || comment.user.name || "User"
                   : "User"}
               </p>
