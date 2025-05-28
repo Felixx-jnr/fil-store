@@ -1,61 +1,88 @@
 "use client";
 
 import { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { GoPerson } from "react-icons/go";
 import { IoIosLock } from "react-icons/io";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function ResetForm() {
-  const [email, setEmail] = useState("");
-  const [resetCode, setResetCode] = useState("");
-  const [newPassword, setNewPassword] = useState("");
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  // Request reset code
-  const handleRequestCode = async (e) => {
-    e.preventDefault();
-    setError("");
-    setMessage("");
-    try {
-      const res = await fetch("/api/auth/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+  // 🔒 Yup password schema
+  const passwordSchema = Yup.string()
+    .min(6, "Password must be at least 8 characters")
+    .matches(/[A-Za-z]/, "Must contain a letter")
+    .matches(/\d/, "Must contain a number")
+    .matches(/[@$!%*?&.#]/, "Must contain a special character (@$!%*?&.#)")
+    .required("Password is required");
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
-      setMessage(data.message);
-      setStep(2);
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+  // 🔹 Step 1: Request Reset Code
+  const formikStep1 = useFormik({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Invalid email").required("Email is required"),
+    }),
+    onSubmit: async (values) => {
+      setError("");
+      setMessage("");
+      try {
+        const res = await fetch("/api/auth/reset-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: values.email }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message);
+        setMessage(data.message);
+        setStep(2);
+      } catch (err) {
+        setError(err.message);
+      }
+    },
+  });
 
-  // Submit new password + code
-  const handleResetPassword = async (e) => {
-    e.preventDefault();
-    setError("");
-    setMessage("");
-    try {
-      const res = await fetch("/api/auth/reset-password", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, resetCode, newPassword }),
-      });
+  // 🔹 Step 2: Submit New Password
+  const formikStep2 = useFormik({
+    initialValues: {
+      resetCode: "",
+      newPassword: "",
+    },
+    validationSchema: Yup.object({
+      resetCode: Yup.string().required("Reset code is required"),
+      newPassword: passwordSchema,
+    }),
+    onSubmit: async (values) => {
+      setError("");
+      setMessage("");
+      try {
+        const res = await fetch("/api/auth/reset-password", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: formikStep1.values.email,
+            resetCode: values.resetCode,
+            newPassword: values.newPassword,
+          }),
+        });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
-      setMessage(data.message);
-      setStep(1);
-      setEmail("");
-      setResetCode("");
-      setNewPassword("");
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message);
+        setMessage(data.message);
+        setStep(1);
+        formikStep1.resetForm();
+        formikStep2.resetForm();
+      } catch (err) {
+        setError(err.message);
+      }
+    },
+  });
 
   return (
     <div className="relative h-screen">
@@ -65,34 +92,34 @@ export default function ResetForm() {
         </h1>
 
         {step === 1 && (
-          <form onSubmit={handleRequestCode}>
+          <form onSubmit={formikStep1.handleSubmit}>
             <label
               className="font-semibold"
               htmlFor="email"
             >
               Email
             </label>
-
             <div className="flex items-center gap-2 px-2 py-3 border-filgrey border-b">
-              <span>
-                <GoPerson className="text-gren text-2xl" />
-              </span>
+              <GoPerson className="text-gren text-2xl" />
               <input
-                autoComplete="off"
-                name="email"
                 type="email"
+                name="email"
                 id="email"
                 placeholder="Enter your email"
                 className="block outline-0 w-full placeholder-filgrey"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+                value={formikStep1.values.email}
+                onChange={formikStep1.handleChange}
+                onBlur={formikStep1.handleBlur}
               />
             </div>
-
+            {formikStep1.touched.email && formikStep1.errors.email && (
+              <p className="mt-1 text-red-500 text-sm">
+                {formikStep1.errors.email}
+              </p>
+            )}
             <button
               className="mt-5 buttons"
-              type="submit "
+              type="submit"
             >
               Send Reset Code
             </button>
@@ -100,7 +127,7 @@ export default function ResetForm() {
         )}
 
         {step === 2 && (
-          <form onSubmit={handleResetPassword}>
+          <form onSubmit={formikStep2.handleSubmit}>
             <div className="my-4">
               <label
                 className="font-semibold"
@@ -108,23 +135,25 @@ export default function ResetForm() {
               >
                 Reset Code
               </label>
-
               <div className="flex items-center gap-2 px-2 py-3 border-filgrey border-b">
-                <span>
-                  <GoPerson className="text-gren text-2xl" />
-                </span>
+                <GoPerson className="text-gren text-2xl" />
                 <input
                   type="text"
-                  autoComplete="off"
-                  id="resetCode"
                   name="resetCode"
+                  id="resetCode"
                   placeholder="Enter reset code"
-                  value={resetCode}
-                  onChange={(e) => setResetCode(e.target.value)}
                   className="block outline-0 w-full placeholder-filgrey"
-                  required
+                  value={formikStep2.values.resetCode}
+                  onChange={formikStep2.handleChange}
+                  onBlur={formikStep2.handleBlur}
                 />
               </div>
+              {formikStep2.touched.resetCode &&
+                formikStep2.errors.resetCode && (
+                  <p className="mt-1 text-red-500 text-sm">
+                    {formikStep2.errors.resetCode}
+                  </p>
+                )}
             </div>
 
             <div>
@@ -134,23 +163,34 @@ export default function ResetForm() {
               >
                 Password
               </label>
-              <div className="flex items-center gap-2 px-2 py-3 border-filgrey border-b">
-                <span>
-                  <GoPerson className="text-gren text-2xl" />
-                </span>
+              <div className="relative flex items-center gap-2 px-2 py-3 border-filgrey border-b">
+                <IoIosLock className="text-gren text-2xl" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
+                  name="newPassword"
                   id="newPassword"
-                  name="password"
                   placeholder="Enter new password"
-                  value={newPassword}
-                  autoComplete="off"
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  required
                   className="block outline-0 w-full placeholder-filgrey"
+                  value={formikStep2.values.newPassword}
+                  onChange={formikStep2.handleChange}
+                  onBlur={formikStep2.handleBlur}
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="right-3 absolute text-gren text-xl"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
               </div>
+              {formikStep2.touched.newPassword &&
+                formikStep2.errors.newPassword && (
+                  <p className="mt-1 text-red-500 text-sm">
+                    {formikStep2.errors.newPassword}
+                  </p>
+                )}
             </div>
+
             <button
               className="my-5 buttons"
               type="submit"
@@ -160,8 +200,10 @@ export default function ResetForm() {
           </form>
         )}
 
-        {message && <p style={{ color: "green" }}>{message}</p>}
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        <div className="flex justify-center mt-2">
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {message && <p style={{ color: "green" }}>{message}</p>}
+        </div>
       </div>
     </div>
   );
