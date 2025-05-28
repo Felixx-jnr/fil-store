@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { homeImages } from "../constants/homeCarousel";
-
 import { easeInOut, motion } from "framer-motion";
 
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -127,14 +126,15 @@ const Description = ({ activeImage, clickNext, clickPrev }) => {
               {item.desc}
             </motion.h3>
 
-            <motion.button
+            <motion.a
               variants={buttonVariants}
               initial="hidden"
               animate="visible"
-              className="bg-green-800 bg-secondary px-3 py-3 rounded-full font-poppins text-xs xs:text-sm text:text-xl"
+              href="/products"
+              className="buttons"
             >
               Shop Now
-            </motion.button>
+            </motion.a>
           </motion.div>
 
           {/* BUTTONS */}

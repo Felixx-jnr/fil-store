@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaTrash, FaEdit, FaPlus } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { formatAmount } from "@/lib/utils";
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
@@ -75,7 +76,10 @@ export default function AdminDashboard() {
                 />
                 <h2 className="font-semibold text-xl">{product.name}</h2>
                 <p className="text-gray-700">{product.category}</p>
-                <p className="font-bold text-green-600">${product.price}</p>
+                <p className="font-bold text-green-600">
+                  
+                  {formatAmount(product.price)}
+                </p>
                 <div className="flex justify-between items-center mt-2">
                   <span className="text-sm">
                     ⭐ {product.rating} ({product.numReviews} reviews)

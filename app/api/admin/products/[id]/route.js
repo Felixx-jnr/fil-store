@@ -5,7 +5,7 @@ import { requireAdmin } from "@/middlewares/authMiddleware";
 // Get single product by ID
 export const GET = requireAdmin(async (req, context) => {
   await connectDB();
-  const { id } = context.params;
+  const { id } = await context.params;
   const product = await Product.findById(id);
   return product
     ? Response.json(product)
@@ -15,7 +15,7 @@ export const GET = requireAdmin(async (req, context) => {
 //admin update product
 export const PUT = requireAdmin(async (req, context) => {
   await connectDB();
-  const { id } = context.params;
+  const { id } = await context.params;
   const data = await req.json();
   const updated = await Product.findByIdAndUpdate(id, data, { new: true });
   return updated
@@ -27,7 +27,7 @@ export const PUT = requireAdmin(async (req, context) => {
 export const DELETE = requireAdmin(async (req, context) => {
   await connectDB();
 
-  const { id } = context.params;
+  const { id } = await context.params;
   await Product.findByIdAndDelete(id);
 
   return new Response("Product deleted", { status: 200 });

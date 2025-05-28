@@ -93,7 +93,7 @@ export default function ProductDetailsPage() {
       />
       <h1 className="mt-4 font-bold text-2xl">{product.name}</h1>
       <p className="mt-2 text-gray-700">{product.description}</p>
-      <p className="mt-4 font-semibold text-xl">${product.price}</p>
+      <p className="mt-4 font-semibold text-xl"> {formatAmount(product.price)}</p>
       <AddToCartButton product={product} />
 
       <Rating productId={product._id} />

@@ -3,10 +3,10 @@ import { connectDB } from "@/lib/db";
 import Order from "@/models/Order";
 
 //update order status
-export const PUT = requireAdmin(async (req, { params }) => {
+export const PUT = requireAdmin(async (req, context) => {
   await connectDB();
 
-  const { id } = params;
+  const { id } = await context.params;
   const { status } = await req.json();
 
   if (!status) {

@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
+import {formatAmount} from "lib/utils"
 import { useSelector, useDispatch } from "react-redux";
 import {
   removeFromCart,
@@ -59,7 +59,7 @@ const CartPage = () => {
                 />
                 <div>
                   <h2 className="font-semibold text-lg">{item.name}</h2>
-                  <p className="text-gray-500 text-sm">${item.price}</p>
+                  <p className="text-gray-500 text-sm">{formatAmount(item.price)}</p>
                   <input
                     type="number"
                     min="1"
@@ -88,7 +88,7 @@ const CartPage = () => {
               Clear Cart
             </button>
             <div className="font-semibold text-lg">
-              Total: ${total.toFixed(2)}
+              Total:  {formatAmount(total)}
             </div>
             <Link
               href="/checkout"
