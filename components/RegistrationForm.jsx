@@ -37,7 +37,7 @@ const RegistrationForm = () => {
         .matches(/[A-Z]/, "Must contain an uppercase letter")
         .matches(/[a-z]/, "Must contain a lowercase letter")
         .matches(/\d/, "Must contain a number")
-        .matches(/[@$!%*?&.#]/, "Must contain a special character"),
+        .matches(/[@$!%*?&.#]/, "Must contain a special character (@$!%*?&.#)"),
 
       confirmPassword: Yup.string()
         .required("Please confirm your password")
