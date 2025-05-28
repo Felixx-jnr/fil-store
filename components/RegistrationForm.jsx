@@ -7,10 +7,13 @@ import { GoPerson } from "react-icons/go";
 import { IoIosLock } from "react-icons/io";
 import Loading from "@/components/Loading";
 import Link from "next/link";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const RegistrationForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   const { isRegistered, isLoading, error } = useSelector(
@@ -34,7 +37,7 @@ const RegistrationForm = () => {
         .matches(/[A-Z]/, "Must contain an uppercase letter")
         .matches(/[a-z]/, "Must contain a lowercase letter")
         .matches(/\d/, "Must contain a number")
-        .matches(/[@$!%*?&#]/, "Must contain a special character"),
+        .matches(/[@$!%*?&.#]/, "Must contain a special character"),
 
       confirmPassword: Yup.string()
         .required("Please confirm your password")
@@ -48,21 +51,6 @@ const RegistrationForm = () => {
       }
     },
   });
-
-  // const [formData, setFormData] = useState({ email: "", password: "" });
-
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(registerUserAsync(formData)).then((res) => {
-  //     if (!res.error) {
-  //       dispatch(setEmail(formData.email));
-  //     }
-  //   });
-  // };
 
   // Navigate after registration
   useEffect(() => {
@@ -103,10 +91,10 @@ const RegistrationForm = () => {
                 placeholder="Type your email"
                 className="block outline-0 w-full placeholder-filgrey"
               />
-              {formik.touched.email && formik.errors.email && (
-                <p className="text-red-500 text-sm">{formik.errors.email}</p>
-              )}
             </div>
+            {formik.touched.email && formik.errors.email && (
+              <p className="text-red-500 text-sm">{formik.errors.email}</p>
+            )}
           </div>
 
           {/* password */}
@@ -124,7 +112,7 @@ const RegistrationForm = () => {
               </span>
               <input
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -133,10 +121,17 @@ const RegistrationForm = () => {
                 placeholder="Type your password"
                 className="block outline-0 w-full placeholder-filgrey"
               />
-              {formik.touched.password && formik.errors.password && (
-                <p className="text-red-500 text-sm">{formik.errors.password}</p>
-              )}
+              <button
+                type="button"
+                className="right-10 absolute focus:outline-none text-gren text-sm cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
+            {formik.touched.password && formik.errors.password && (
+              <p className="text-red-500 text-sm">{formik.errors.password}</p>
+            )}
           </div>
 
           {/* confirm password */}
@@ -154,7 +149,7 @@ const RegistrationForm = () => {
               </span>
               <input
                 name="confirmPassword"
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 id="confirmPassword"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -163,13 +158,20 @@ const RegistrationForm = () => {
                 placeholder="Comfirm your password"
                 className="block outline-0 w-full placeholder-filgrey"
               />
-              {formik.touched.confirmPassword &&
-                formik.errors.confirmPassword && (
-                  <p className="text-red-500 text-sm">
-                    {formik.errors.confirmPassword}
-                  </p>
-                )}
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="right-10 absolute focus:outline-none text-gren text-sm cursor-pointer pointer-events"
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
+            {formik.touched.confirmPassword &&
+              formik.errors.confirmPassword && (
+                <p className="text-red-500 text-sm">
+                  {formik.errors.confirmPassword}
+                </p>
+              )}
           </div>
 
           <button
