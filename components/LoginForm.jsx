@@ -4,22 +4,43 @@ import { useRouter } from "next/navigation";
 import { GoPerson } from "react-icons/go";
 import { IoIosLock } from "react-icons/io";
 import Link from "next/link";
+import Loading from "./Loading";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const passwordRef = useRef(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    if (res.ok) router.push("/profile");
+    setError("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        router.push("/profile");
+      } else {
+        setError(data.message || "Invalid email or password");
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleEmailKeyDown = (e) => {
@@ -73,7 +94,7 @@ export default function LoginForm() {
                 <IoIosLock className="text-gren text-2xl" />
               </span>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
                 ref={passwordRef}
@@ -82,10 +103,18 @@ export default function LoginForm() {
                 placeholder="Password"
                 className="block outline-0 w-full placeholder-filgrey"
               />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="right-10 absolute focus:outline-none text-gren text-sm"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
           </div>
 
-          <div className=" mt-2 flex justify-end">
+          <div className="flex justify-end mt-2">
             <Link
               className="hover:text-gren text-xs hover:underline"
               href="/reset-password"
@@ -94,11 +123,20 @@ export default function LoginForm() {
             </Link>
           </div>
 
+          {error && (
+            <div className="mt-2 font-medium text-red-500 text-sm text-center">
+              {error}
+            </div>
+          )}
+
           <button
             type="submit"
-            className="block mt-5 buttons"
+            className={`block justify-center items-center mt-5 ${
+              loading ? "" : "buttons"
+            } `}
+            disabled={loading}
           >
-            Login
+            {loading ? <Loading /> : "Login"}
           </button>
         </form>
         <div className="mt-10 text-center">
