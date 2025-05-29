@@ -10,6 +10,7 @@ const ProductCard = ({
   productName,
   productImage,
   productPrice,
+  originalPrice,
   productDesc,
 }) => {
   const [hasMouse, setHasMouse] = useState(true);
@@ -24,6 +25,10 @@ const ProductCard = ({
 
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
+
+  const discountPercentage = Math.round(
+    ((originalPrice - productPrice) / originalPrice) * 100
+  );
 
   const imageVariants = hasMouse
     ? { initial: { scale: 1 }, hover: { scale: 1.1 } }
@@ -58,9 +63,9 @@ const ProductCard = ({
         />
       </motion.div>
 
-      <p className="top-0 left-0 absolute bg-mustard p-1 font-poppins font-semibold text-moss text-xs">
-        40% Off
-      </p>
+      { discountPercentage > 0 && <p className="top-0 left-0 absolute bg-mustard p-1 font-poppins font-semibold text-moss text-xs">
+        {discountPercentage}% Off
+      </p>}
 
       {/* PRODUCT DETAILS */}
       <motion.div
@@ -77,7 +82,9 @@ const ProductCard = ({
           {productDesc}
         </p>
         <span className="flex gap-3 mb-2 py-1">
-          <p className="font-poppins text-gray-400 line-through">$30</p>
+          <p className="font-poppins text-gray-400 line-through">
+            {formatAmount(originalPrice)}
+          </p>
           <p className="font-poppins text-light">
             {formatAmount(productPrice)}
           </p>

@@ -8,6 +8,7 @@ import { getProduct } from "@/store/features/productSlice";
 import AddToCartButton from "@/components/AddToCart";
 import Loading from "@/components/Loading";
 import Rating from "@/components/Rating";
+import {formatAmount} from "@/lib/utils"
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
