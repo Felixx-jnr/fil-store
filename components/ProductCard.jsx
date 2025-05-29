@@ -12,6 +12,7 @@ const ProductCard = ({
   productPrice,
   originalPrice,
   productDesc,
+  className = "",
 }) => {
   const [hasMouse, setHasMouse] = useState(true);
 
@@ -46,7 +47,7 @@ const ProductCard = ({
     <motion.div
       initial="initial"
       whileHover={hasMouse ? "hover" : undefined}
-      className="relative flex flex-col justify-between bg-dark shadow-lg px-4 w-[250px] md:w-[350px] h-[400px]"
+      className={`relative flex flex-col justify-between shadow-lg px-4 w-[250px] md:w-[350px] h-[400px] ${className}`}
     >
       {/* PRODUCT IMAGE */}
       <motion.div
@@ -63,9 +64,11 @@ const ProductCard = ({
         />
       </motion.div>
 
-      { discountPercentage > 0 && <p className="top-0 left-0 absolute bg-mustard p-1 font-poppins font-semibold text-moss text-xs">
-        {discountPercentage}% Off
-      </p>}
+      {discountPercentage > 0 && (
+        <p className="top-0 left-0 absolute bg-mustard p-1 font-poppins font-semibold text-moss text-xs">
+          {discountPercentage}% Off
+        </p>
+      )}
 
       {/* PRODUCT DETAILS */}
       <motion.div
@@ -89,13 +92,6 @@ const ProductCard = ({
             {formatAmount(productPrice)}
           </p>
         </span>
-
-        {/* <motion.div
-          variants={buttonVariants}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
-          <AddToCartButton productName={productName} />
-        </motion.div> */}
 
         <AddToCartButton productName={productName} />
       </motion.div>

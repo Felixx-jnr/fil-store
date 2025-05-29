@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import { original } from "@reduxjs/toolkit";
+import { formatAmount } from "@/lib/utils";
 
 const products = [
   {
@@ -69,6 +69,7 @@ const DiscountedSection = () => {
                 originalPrice={product.originalPrice}
                 productPrice={product.price}
                 productDesc={product.desc}
+                className="bg-dark"
               />
             </div>
           ))}
