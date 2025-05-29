@@ -66,7 +66,7 @@ const ProductCard = ({
       <motion.div
         variants={detailsVariants}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="max-lg:mb-4"
+        className="my-4 max-lg:mb-4"
       >
         <p className="text-mustard text-sm">HOT</p>
 
@@ -83,14 +83,14 @@ const ProductCard = ({
           </p>
         </span>
 
-        <motion.div
+        {/* <motion.div
           variants={buttonVariants}
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <AddToCartButton productName={productName} />
-        </motion.div>
+        </motion.div> */}
 
-        {!hasMouse && <AddToCartButton productName={productName} />}
+        <AddToCartButton productName={productName} />
       </motion.div>
     </motion.div>
   );

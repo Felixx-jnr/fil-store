@@ -130,7 +130,7 @@ const DiscountedSection = () => {
                 <ProductCard
                   productName={product.name}
                   productImage={product.img}
-                  productPrice="$18"
+                  productPrice = '18'
                   productDesc="250W High-Efficiency Charger"
                 />
               )}
