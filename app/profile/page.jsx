@@ -9,10 +9,11 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { GiWorld } from "react-icons/gi";
 import { FaBirthdayCake } from "react-icons/fa";
 import Loading from "@/components/Loading";
-import useRouter from "next/navigation";
+import {useRouter} from "next/navigation";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { user, isLoading, error } = useSelector((state) => state.auth);
   const [countryList, setCountryList] = useState([]);
 
@@ -90,6 +91,7 @@ export default function ProfilePage() {
     await dispatch(updateUser(formData));
     dispatch(fetchUser());
     setIsEditing(false);
+    router.push("/products");
   };
 
   if (isLoading)
@@ -106,6 +108,9 @@ export default function ProfilePage() {
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           PROFILE PAGE
         </h1>
+        <p className=" text-gren text-xs xs:text-sm text-center">
+          Fill in your details, to get a customize experience
+        </p>
         {Object.entries(formData).map(([key, value]) => (
           <div
             key={key}
