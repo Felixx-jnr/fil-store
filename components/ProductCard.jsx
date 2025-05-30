@@ -12,6 +12,7 @@ const ProductCard = ({
   productPrice,
   originalPrice,
   productDesc,
+  product,
   className = "",
 }) => {
   const [hasMouse, setHasMouse] = useState(true);
@@ -85,15 +86,15 @@ const ProductCard = ({
           {productDesc}
         </p>
         <span className="flex gap-3 mb-2 py-1">
-          <p className="font-poppins text-gray-400 line-through">
+          { originalPrice > 0 && <p className="font-poppins text-gray-400 line-through">
             {formatAmount(originalPrice)}
-          </p>
+          </p>}
           <p className="font-poppins text-light">
             {formatAmount(productPrice)}
           </p>
         </span>
 
-        <AddToCartButton productName={productName} />
+        <AddToCartButton product={product} />
       </motion.div>
     </motion.div>
   );

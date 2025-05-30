@@ -20,7 +20,7 @@ const page = () => {
       <Device />
       <MustHaveSection />
       <ImageCarousel />
-      <MemberSection />
+      {/* <MemberSection /> */}
       <FansSection />
     </div>
   );

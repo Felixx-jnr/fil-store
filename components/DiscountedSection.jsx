@@ -2,51 +2,25 @@
 
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import { formatAmount } from "@/lib/utils";
-
-const products = [
-  {
-    name: "Power Banks",
-    img: "/pow.webp",
-    price: "13000",
-    originalPrice: "20000",
-    desc: "250W High-Efficiency Charger",
-  },
-  {
-    name: "Wireless Earbuds",
-    img: "/charger.webp",
-    price: "9000",
-    originalPrice: "12000",
-    desc: "Best Sound Quality",
-  },
-  {
-    name: "PlayerStations",
-    img: "/exte.webp",
-    price: "26000",
-    originalPrice: "30000",
-    desc: "High-Performance Gaming Console",
-  },
-  {
-    name: "Game Controllers",
-    img: "/pow.webp",
-    price: "30000",
-    originalPrice: "35000",
-    desc: "Ergonomic Design for Comfort",
-  },
-];
 
 const DiscountedSection = () => {
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [discountedProducts, setDiscountedProducts] = useState([]);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024);
+    const fetchDiscountedProducts = async () => {
+      try {
+        const res = await fetch("/api/products/"); // Replace with your actual backend URL
+        const data = await res.json();
+
+        // Filter products where isDiscounted is true
+        const discounted = data.filter((product) => product.isDiscounted);
+        setDiscountedProducts(discounted);
+      } catch (error) {
+        console.error("Failed to fetch discounted products:", error);
+      }
     };
 
-    handleResize(); // Run once on mount
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
+    fetchDiscountedProducts();
   }, []);
 
   return (
@@ -60,18 +34,19 @@ const DiscountedSection = () => {
 
       <div className="mx-auto overflow-x-auto overflow-y-hidden whitespace-nowrap no-scrollbar">
         <div className="inline-flex gap-4 px-10">
-          {products.map((product, index) => (
-            // PRODUCT CARDS
-            <div key={index}>
-              <ProductCard
-                productName={product.name}
-                productImage={product.img}
-                originalPrice={product.originalPrice}
-                productPrice={product.price}
-                productDesc={product.desc}
-                className="bg-dark"
-              />
-            </div>
+          {discountedProducts.map((product, index) => (
+            
+            <ProductCard
+              key={index}
+              product={product}
+              productName={product.name}
+              productImage={product.image}
+              originalPrice={product.originalPrice}
+              productPrice={product.price}
+              productDesc={product.description}
+              className="bg-dark"
+            />
+           
           ))}
         </div>
       </div>
