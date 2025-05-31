@@ -99,7 +99,7 @@ export default function TrackOrderPage() {
               ))}
             </ul>
             <p className = "text-gren text-lg font-semibold" >Total: { formatAmount(order.total)}</p>
-            <p className = "text-xs text-lightgrey">Ordered On: {new Date(order.createdAt).toLocaleDateString()}</p>
+            <p className = "text-xs text-filgrey">Ordered On: {new Date(order.createdAt).toLocaleDateString()}</p>
           </div>
         )}
       </div>
