@@ -45,7 +45,7 @@ export default function OrderProgressBar({ currentStatus }) {
                 }}
                 transition={{ duration: 0.5 }}
                 className="top-5 left-1/2 absolute bg-green-600 h-1"
-                style={{ right: "-50%", zIndex: -1 }}
+                style={{ right: "-50%", zIndex: 1 }}
               />
             )}
           </div>
