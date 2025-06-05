@@ -10,6 +10,7 @@ import {
   clearCart,
 } from "@/store/features/cartSlice";
 import Link from "next/link";
+import { MdOutlineDelete } from "react-icons/md";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -40,8 +41,8 @@ const CartPage = () => {
   );
 
   return (
-    <div className="flex justify-center mt-[50px] p-10 form-background">
-      <div className="bg-white shadow-2xl p-5 rounded-2xl w-[985%] xs:w-[80%] md:w-[600px]">
+    <div className="flex justify-center mt-[50px] xs:p-10 py-10 form-background">
+      <div className="bg-white shadow-2xl xs:p-5 px-2 py-5 rounded-2xl w-[98%] md:w-[700px]">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           YOUR CART
         </h1>
@@ -50,8 +51,8 @@ const CartPage = () => {
         </p>
 
         {cartItems.length === 0 ? (
-          <p className="mb-5 font-semibold text-filred text-xl xs:text-2xl text-center">
-            Your cart is empty. Start adding items to your cart!
+          <p className="mb-5 f== text-filred text-xl xs:text-2xl text-center">
+            Your cart is empty. Start adding items to your cart <Link className = "hover:underline text-gren font-semiblod" href = "/products"> Here! </Link>
           </p>
         ) : (
           <>
@@ -60,16 +61,19 @@ const CartPage = () => {
                 key={item._id}
                 className="flex justify-between items-center mt-2 pb-2 border-b"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-4">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="rounded w-32 h-32 object-cover"
+                    className="rounded w-24 sm:w-32 h-24 sm:h-32 object-cover"
                   />
                   <div>
-                    <h2 className="font-semibold text-lg">{item.name}</h2>
+                    <h2 className="text-sm sm:text-xl">{item.name}</h2>
+                    <p className="my-1 text-gren text-xs sm:text-lg">
+                      {formatAmount(item.price)}
+                    </p>
 
-                    <div className="flex items-center my-2">
+                    <div className="flex items-center">
                       <button
                         onClick={() =>
                           handleQuantityChange(
@@ -77,7 +81,7 @@ const CartPage = () => {
                             Math.max(1, item.quantity - 1)
                           )
                         }
-                        className="bg-gren hover:bg-filgreen px-2 py-1 rounded-tl-xl rounded-bl-xl h-8 text-white"
+                        className="bg-gren hover:bg-filgreen px-1 py-1 rounded-tl-2xl rounded-bl-2xl h-5 sm:h-8 text-white text-xs sm:text-base"
                       >
                         -
                       </button>
@@ -91,46 +95,45 @@ const CartPage = () => {
                             Math.max(1, Number(e.target.value))
                           )
                         }
-                        className="border-t-2 border-t-gren border-b-2 border-b-gren outline-0 w-12 h-8 text-center"
+                        className="border-t border-t-gren border-b border-b-gren outline-0 w-5 h-5 sm:h-8 text-center no-spinner"
                       />
 
                       <button
                         onClick={() =>
                           handleQuantityChange(item._id, item.quantity + 1)
                         }
-                        className="bg-gren hover:bg-filgreen px-2 py-1 rounded-tr-2xl rounded-br-2xl h-8 text-white"
+                        className="bg-gren hover:bg-filgreen px-1 py-1 rounded-tr-2xl rounded-br-2xl h-5 sm:h-8 text-white text-xs sm:text-base"
                       >
                         +
                       </button>
                     </div>
-
-                    <p className="font-semibold text-green text-lg">
-                      {formatAmount(item.price)}
-                    </p>
                   </div>
                 </div>
                 <button
                   onClick={() => handleRemove(item._id)}
-                  className="danger-btn"
+                  className="text-red-500 hover:text-red-700 text-2xl"
                 >
-                  Remove
+                  <MdOutlineDelete />
                 </button>
               </div>
             ))}
 
-            <div className="flex justify-between items-center mt-6">
-              <button
+            <button
                 onClick={() => dispatch(clearCart())}
-                className="text-red-600 text-sm danger-btn"
+                className="mt-2 text-red-600 hover:text-red-700 text-sm hover:underline"
               >
                 Clear Cart
               </button>
-              <div className="font-semibold text-xl">
+
+            <div className="flex justify-between items-center mt-2">
+              
+              <div className=" text-lg text-gren ">
                 Total: {formatAmount(total)}
               </div>
+
               <Link
                 href="/checkout"
-                className="buttons"
+                className="buttons "
               >
                 {" "}
                 Proceed

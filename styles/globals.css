@@ -56,3 +56,13 @@
 .form-background {
   background: linear-gradient(135deg, #0d542b, #1cc874, #0d542b);
 }
+
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinner {
+  -moz-appearance: textfield;
+}
