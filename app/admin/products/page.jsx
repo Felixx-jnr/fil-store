@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FaTrash, FaEdit, FaPlus } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { formatAmount } from "@/lib/utils";
+import Loading from "@/components/Loading";
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
@@ -48,65 +49,76 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="font-bold text-3xl">Admin Product Dashboard</h1>
-        <button onClick={() => router.push("/admin/products/create")}>
-          {" "}
-          <FaPlus className="mr-2 buttons" /> Add Product{" "}
-        </button>
-      </div>
+    <div className="flex justify-center mt-[50px] xs:p-10 px-3 py-10 form-background">
+      <div className="bg-white shadow-2xl p-5 rounded-2xl w-full">
+        <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
+          SEE ALL PRODUCTS
+        </h1>
+        <p className="mb-5 text-gren text-xs xs:text-sm text-center">
+          As an admin, you can manage all products here. You can add, edit, or
+          delete products as needed.
+        </p>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <motion.div
-              key={product._id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="relative p-4 border">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="mb-2 rounded w-full h-40 object-cover"
-                />
-                <h2 className="font-semibold text-xl">{product.name}</h2>
-                <p className="text-gray-700">{product.category}</p>
-                <p className="font-bold text-green-600">
-                  {formatAmount(product.price)}
-                </p>
-                <div className="flex justify-between items-center mt-2">
-                  <span className="text-sm">
-                    ⭐ {product.rating} ({product.numReviews} reviews)
-                  </span>
+        <button
+          className="flex justify-self-end my-2 buttons"
+          onClick={() => router.push("/admin/products/create")}
+        >
+          Add New Product
+        </button>
+
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((product) => (
+              <motion.div
+                key={product._id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="relative p-4 bg-light shadow-md rounded-xl">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="mb-2 rounded w-full h-40 object-cover"
+                  />
+                  <h2 className="font-semibold text-xl text-gren">{product.name}</h2>
+                  <p className="text-gray-700">{product.category}</p>
+                  <p className="font-bold text-gren">
+                    {formatAmount(product.price)}
+                  </p>
+                  <div className="flex justify-between items-center mt-2">
+                    <span className="text-sm font-semibold">
+                      ⭐ {product.averageRating?.toFixed(1) || 0} (
+                      {product.ratings?.length || 0} reviews)
+                    </span>
+                  </div>
+
+                  <div className="flex gap-2 mt-4 justify-between">
+                    <button
+                      className = "buttons"
+                      
+                      onClick={() =>
+                        router.push(`/admin/products/${product._id}`)
+                      }
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                       className = "danger-btn"
+                      onClick={() => handleDelete(product._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-                <div className="flex justify-end gap-2 mt-4">
-                  <button
-                    size="sm"
-                    variant="outline"
-                    onClick={() =>
-                      router.push(`/admin/products/${product._id}`)
-                    }
-                  >
-                    <FaEdit className="mr-1" /> Edit
-                  </button>
-                  <button
-                    size="sm"
-                    variant="destructive"
-                    onClick={() => handleDelete(product._id)}
-                  >
-                    <FaTrash className="mr-1" /> Delete
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      )}
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
