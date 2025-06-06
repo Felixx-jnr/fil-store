@@ -40,45 +40,73 @@ export default function FeedbackForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4 bg-white shadow p-4 rounded"
-    >
-      <h3 className="font-bold text-lg">Rate Your Experience</h3>
-      <div className="flex space-x-1">
-        {[1, 2, 3, 4, 5].map((i) => (
-          <FaStar
-            key={i}
-            onClick={() => setRating(i)}
-            onMouseEnter={() => setHover(i)}
-            onMouseLeave={() => setHover(0)}
-            className={`text-2xl cursor-pointer ${
-              (hover || rating) >= i ? "text-yellow-500" : "text-gray-300"
-            }`}
-          />
-        ))}
-      </div>
-      <textarea
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        placeholder="Leave a comment (optional)"
-        className="p-2 border rounded w-full"
-      />
-      <button
-        type="submit"
-        className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white"
-      >
-        Submit Feedback
-      </button>
-      {message.text && (
-        <p
-          className={`text-sm ${
-            message.type === "error" ? "text-red-600" : "text-green-600"
-          }`}
-        >
-          {message.text}
+    <div className="flex justify-center mt-[50px] xs:p-10 px-3 py-10 form-background">
+      <div className="bg-white shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[95%] md:w-[600px]">
+        <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
+          RATE YOUR EXPERIENCE
+        </h1>
+        <p className="mb-5 text-gren text-xs xs:text-sm text-center">
+          Your feedback is important to us! Please rate your experience and
+          leave a comment if you wish.
         </p>
-      )}
-    </form>
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4 p-4"
+        >
+          <h3 className="font-semibold text-lg text-center">
+            {" "}
+            How was your experience shopping with us?{" "}
+          </h3>
+          <div className="flex justify-center space-x-2">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <FaStar
+                key={i}
+                onClick={() => setRating(i)}
+                onMouseEnter={() => setHover(i)}
+                onMouseLeave={() => setHover(0)}
+                className={`text-4xl text-center cursor-pointer ${
+                  (hover || rating) >= i ? "text-yellow-500" : "text-gray-300"
+                }`}
+              />
+            ))}
+          </div>
+
+          <div>
+            <label
+              className="font-semibold"
+              htmlFor="comment"
+            >
+              Comment
+            </label>
+
+            <div className="flex items-center gap-2 px-2 py-3 border-filgrey border-b">
+              <textarea
+                id = "comment"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Leave a comment (optional)"
+                className="block outline-0 w-full placeholder-filgrey"
+                
+              />
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="buttons"
+          >
+            Submit Feedback
+          </button>
+          {message.text && (
+            <p
+              className={`text-sm ${
+                message.type === "error" ? "text-red-600" : "text-green-600"
+              }`}
+            >
+              {message.text}
+            </p>
+          )}
+        </form>
+      </div>
+    </div>
   );
 }
