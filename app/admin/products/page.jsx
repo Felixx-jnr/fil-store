@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaTrash, FaEdit, FaPlus } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { formatAmount } from "@/lib/utils";
 import Loading from "@/components/Loading";
