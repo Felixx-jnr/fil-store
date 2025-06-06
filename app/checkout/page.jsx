@@ -4,6 +4,11 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { GoPerson } from "react-icons/go";
+import { MdOutlineEmail } from "react-icons/md";
+import { FiPhone } from "react-icons/fi";
+import { MdOutlineLocationOn } from "react-icons/md";
+import { formatAmount } from "lib/utils";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -11,7 +16,7 @@ export default function CheckoutPage() {
   const user = useSelector((state) => state.auth.user);
 
   const [userData, setUserData] = useState({
-    name: "",
+    username: "",
     email: "",
     address: "",
     phone: "",
@@ -29,7 +34,7 @@ export default function CheckoutPage() {
     const initUserData = async () => {
       if (user && user.email) {
         setUserData({
-          name: user.name || "",
+          username: user.username || "",
           email: user.email || "",
           address: user.address || "",
           phone: user.phone || "",
@@ -49,8 +54,8 @@ export default function CheckoutPage() {
             },
           });
 
-          const { name, email, address, phone } = res.data.user;
-          setUserData({ name, email, address, phone });
+          const { username, email, address, phone } = res.data.user;
+          setUserData({ username, email, address, phone });
         } catch (err) {
           console.error("Failed to fetch user:", err);
         } finally {
@@ -69,7 +74,12 @@ export default function CheckoutPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!userData.name || !userData.email || !userData.address || !userData.phone) {
+    if (
+      !userData.username ||
+      !userData.email ||
+      !userData.address ||
+      !userData.phone
+    ) {
       alert("Please fill in all fields");
       return;
     }
@@ -90,79 +100,143 @@ export default function CheckoutPage() {
   if (loading) return <p className="p-4">Loading user info...</p>;
 
   return (
-    <div className="mx-auto p-4 max-w-2xl">
-      <h2 className="mb-4 font-bold text-2xl">Checkout</h2>
+    <div className="flex justify-center mt-[50px] px-3 xs:p-10 py-10 form-background">
+      <div className="bg-white shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[95%] md:w-[600px]">
+        <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
+          CHECKOUT
+        </h1>
+        <p className="mb-5 text-gren text-xs xs:text-sm text-center">
+          Review your items before proceeding to make payment
+        </p>
 
-      {/* Cart Items */}
-      <div className="bg-gray-50 shadow mb-6 p-4 rounded">
-        <h3 className="mb-2 font-semibold text-lg">Cart Items</h3>
-        {cartItems.map((item) => (
-          <div
-            key={item._id}
-            className="flex justify-between py-1 border-b text-sm"
-          >
-            <span>
-              {item.name} × {item.quantity || 1}
-            </span>
-            <span>${(item.price * (item.quantity || 1)).toFixed(2)}</span>
+        {/* Cart Items */}
+        <div className="bg-light shadow mb-6 p-4 rounded">
+          <h3 className="mb-2 font-semibold text-2xl text-gren">Cart Items</h3>
+          {cartItems.map((item) => (
+            <div
+              key={item._id}
+              className="flex justify-between py-1 border-b text-sm"
+            >
+              <span className = "font-semibold">
+                {item.name} × {item.quantity || 1}
+              </span>
+              <span className = " font-semibold text-sm text-gren  " >{formatAmount(item.price * (item.quantity || 1))}</span>
+            </div>
+          ))}
+          <div className="flex justify-between mt-3 font-bold text-lg text-gren">
+            <span>Total:</span>
+            <span>{formatAmount(total)}</span>
           </div>
-        ))}
-        <div className="flex justify-between mt-3 font-bold text-base">
-          <span>Total:</span>
-          <span>${total.toFixed(2)}</span>
         </div>
+
+        {/* User Info Form */}
+        <form onSubmit={handleSubmit}>
+          <div className="my-4">
+            <label
+              className="font-semibold text-gren"
+              htmlFor="username"
+            >
+              Username
+            </label>
+
+            <div className="flex items-center gap-2 px-2 py-2 border-filgrey border-b">
+              <span>
+                <GoPerson className="text-gren text-2xl" />
+              </span>
+              <input
+                name="username"
+                type="text"
+                placeholder="Full Name"
+                value={userData.username}
+                onChange={handleChange}
+                className="block outline-0 w-full placeholder-filgrey"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="my-4">
+            <label
+              className="font-semibold text-gren"
+              htmlFor="email"
+            >
+              Email
+            </label>
+
+            <div className="flex items-center gap-2 px-2 py-2 border-filgrey border-b">
+              <span>
+                < MdOutlineEmail  className="text-gren text-2xl" />
+              </span>
+
+              <input
+                name="email"
+                type="email"
+                placeholder="Email"
+                value={userData.email}
+                onChange={handleChange}
+                className="block outline-0 w-full placeholder-filgrey"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="my-4">
+            <label
+              className="font-semibold text-gren"
+              htmlFor="phone"
+            >
+              Phone
+            </label>
+
+            <div className="flex items-center gap-2 px-2 py-2 border-filgrey border-b">
+              <span>
+                <FiPhone className="text-gren text-2xl" />
+              </span>
+
+              <input
+                name="phone"
+                type="phone"
+                placeholder="Phone"
+                value={userData.phone}
+                onChange={handleChange}
+                className="block outline-0 w-full placeholder-filgrey"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="my-4">
+            <label
+              className="font-semibold text-gren"
+              htmlFor="address"
+            >
+              Delivery Address
+            </label>
+
+            <div className="flex items-center gap-2 px-2 py-2 border-filgrey border-b">
+              <span>
+                <MdOutlineLocationOn className="text-gren text-2xl" />
+              </span>
+              <input
+                type="text"
+                name="address"
+                placeholder="Delivery Address"
+                value={userData.address}
+                onChange={handleChange}
+                className="block outline-0 w-full placeholder-filgrey"
+                required
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="buttons"
+          >
+            Proceed to Payment
+          </button>
+        </form>
       </div>
-
-      {/* User Info Form */}
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
-      >
-        <input
-          name="name"
-          type="text"
-          placeholder="Full Name"
-          value={userData.name}
-          onChange={handleChange}
-          className="p-2 border rounded w-full"
-          required
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={userData.email}
-          onChange={handleChange}
-          className="p-2 border rounded w-full"
-          required
-        />
-
-        <input
-          name="phone"
-          type="phone"
-          placeholder="Phone"
-          value={userData.phone}
-          onChange={handleChange}
-          className="p-2 border rounded w-full"
-          required
-        />
-
-        <textarea
-          name="address"
-          placeholder="Delivery Address"
-          value={userData.address}
-          onChange={handleChange}
-          className="p-2 border rounded w-full"
-          required
-        ></textarea>
-
-        <button
-          type="submit"
-          className="bg-black hover:bg-gray-800 px-4 py-2 rounded w-full text-white"
-        >
-          Proceed to Payment
-        </button>
-      </form>
     </div>
   );
 }

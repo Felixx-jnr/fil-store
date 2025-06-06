@@ -51,8 +51,15 @@ const CartPage = () => {
         </p>
 
         {cartItems.length === 0 ? (
-          <p className="mb-5 f== text-filred text-xl xs:text-2xl text-center">
-            Your cart is empty. Start adding items to your cart <Link className = "hover:underline text-gren font-semiblod" href = "/products"> Here! </Link>
+          <p className="mb-5 text-filred text-xl xs:text-2xl text-center f==">
+            Your cart is empty. Start adding items to your cart{" "}
+            <Link
+              className="font-semiblod text-gren hover:underline"
+              href="/products"
+            >
+              {" "}
+              Here!{" "}
+            </Link>
           </p>
         ) : (
           <>
@@ -119,21 +126,20 @@ const CartPage = () => {
             ))}
 
             <button
-                onClick={() => dispatch(clearCart())}
-                className="mt-2 text-red-600 hover:text-red-700 text-sm hover:underline"
-              >
-                Clear Cart
-              </button>
+              onClick={() => dispatch(clearCart())}
+              className="mt-2 text-red-600 hover:text-red-700 text-sm hover:underline"
+            >
+              Clear Cart
+            </button>
 
             <div className="flex justify-between items-center mt-2">
-              
-              <div className=" text-lg text-gren ">
+              <div className="font-bold text-gren text-xl">
                 Total: {formatAmount(total)}
               </div>
 
               <Link
                 href="/checkout"
-                className="buttons "
+                className="buttons"
               >
                 {" "}
                 Proceed

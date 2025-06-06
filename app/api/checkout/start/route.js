@@ -3,7 +3,7 @@ import axios from "axios";
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { name, email, phone, address, cartItems } = body;
+    const { username, email, phone, address, cartItems } = body;
 
     if (!email || !phone || !address || cartItems.length === 0) {
       return new Response(
@@ -27,7 +27,7 @@ export async function POST(req) {
         email,
         amount,
         metadata: {
-          name,
+          username,
           email,
           phone,
           total,

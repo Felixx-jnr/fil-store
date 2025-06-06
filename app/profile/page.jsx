@@ -9,7 +9,7 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import { GiWorld } from "react-icons/gi";
 import { FaBirthdayCake } from "react-icons/fa";
 import Loading from "@/components/Loading";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -63,6 +63,12 @@ export default function ProfilePage() {
       try {
         const res = await fetch("https://restcountries.com/v3.1/all");
         const data = await res.json();
+
+        if (!Array.isArray(data)) {
+          console.error('Unexpected data format:', data);
+          return;
+        }
+
         const sortedCountries = data
           .map((c) => ({
             name: c.name.common,
@@ -108,9 +114,13 @@ export default function ProfilePage() {
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           PROFILE PAGE
         </h1>
-        <p className=" text-gren text-xs xs:text-sm text-center">
+        <div className=" font-semibold text-gren text-xs xs:text-lg text-center">
+          {user?.email}
+        </div>
+        <p className="text-gren text-xs xs:text-sm text-center">
           Fill in your details, to get a customize experience
         </p>
+        
         {Object.entries(formData).map(([key, value]) => (
           <div
             key={key}
