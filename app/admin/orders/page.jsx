@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { FaUser, FaBox } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { formatAmount } from "lib/utils";
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -56,72 +57,102 @@ export default function AdminOrdersPage() {
   if (loading) return <p className="p-4">Loading orders...</p>;
 
   return (
-    <div className="p-4">
-      <h1 className="mb-4 font-bold text-2xl">All Orders</h1>
-      <div className="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {orders.map((order) => (
-          <motion.div
-            key={order._id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="shadow p-4 rounded-2xl">
-              <div className="flex items-center gap-2 mb-2">
-                <FaBox className="text-green-500" />
-                <h2 className="font-semibold text-lg">Order #{order._id}</h2>
-              </div>
-              <p>
-                Status: <strong>{order.status}</strong>
-              </p>
-              <p>Total: ${order.total}</p>
-              <div className="mt-2">
-                <FaUser className="inline mr-1 text-blue-500" />
-                <span className="font-medium">
-                  {order.username || "Guest User"}
-                </span>
-              </div>
-              <p>Email: {order.email || "-"}</p>
-              <p>Phone: {order.phone || "-"}</p>
-              <p>Phone: {order.address || "-"}</p>
-              <ul className="text-sm list-disc list-inside">
-              {order.items.map((item, i) => (
-                  <li key={i}>
-                    {item.name} × {item.quantity} — ${item.price}
-                  </li>
-                ))}
-              </ul>
+    <div className="flex justify-center mt-[50px] xs:p-10 px-3 py-10 form-background">
+      <div className="bg-white shadow-2xl p-5 rounded-2xl w-full">
+        <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
+          ALL ORDERS
+        </h1>
+        <p className="mb-5 text-gren text-xs xs:text-sm text-center">
+          As an admin, you can manage all orders here. You can cansel and change
+          delivery status of all orders
+        </p>
 
-              <div className="mt-4">
-                <label
-                  htmlFor="status"
-                  className="text-sm"
+        <div className="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {orders.map((order) => (
+            <motion.div
+              key={order._id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="bg-light shadow-md p-4 rounded-2xl">
+                <div>
+                  <h2 className="font-semibold text-gren text-xl">
+                    USER DETAILS
+                  </h2>
+                  <p>
+                    {" "}
+                    Name: <span>{order.username || "Guest User"}</span>{" "}
+                  </p>
+                  <p>Email: {order.email || "-"}</p>
+                  <p>Phone: {order.phone || "-"}</p>
+                  <p>Address: {order.address || "-"}</p>
+                </div>
+
+                <div className="mt-2">
+                  <h2 className="font-semibold text-gren text-xl">
+                    ORDER DETAILS
+                  </h2>
+                  <h2 className="">Order ID - {order._id}</h2>
+
+                  <p>
+                    Status:{" "}
+                    <span className="font-medium text-gren">
+                      {order.status}
+                    </span>
+                  </p>
+
+                  <p className="mt-2 font-semibold text-gren text-sm">
+                    Items Purchased
+                  </p>
+                  <ul className="text-sm list-disc list-inside">
+                    {order.items.map((item, i) => (
+                      <li key={i}>
+                        {item.name} × {item.quantity} —{" "}
+                        {formatAmount(item.price)}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="">
+                    Total:
+                    <span className="font-medium text-gren">
+                      {formatAmount(order.total)}
+                    </span>
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3 mt-4">
+                  <label
+                    htmlFor="status"
+                    className="text-sm"
+                  >
+                    Change Status:
+                  </label>
+
+                  <select
+                    id="status"
+                    className="block mt-1 border rounded"
+                    value={order.status}
+                    onChange={(e) =>
+                      handleStatusChange(order._id, e.target.value)
+                    }
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                  </select>
+                </div>
+                <button
+                  onClick={() => handleDelete(order._id)}
+                  className="mt-4 px-3 py-1 rounded text-white text-sm danger-btn"
                 >
-                  Change Status:
-                </label>
-                <select
-                  id="status"
-                  className="block mt-1 p-1 border rounded"
-                  value={order.status}
-                  onChange={(e) =>
-                    handleStatusChange(order._id, e.target.value)
-                  }
-                >
-                  <option value="Pending">Pending</option>
-                  <option value="Processing">Processing</option>
-                  <option value="Shipped">Shipped</option>
-                  <option value="Delivered">Delivered</option>
-                </select>
+                  Delete Order
+                </button>
               </div>
-              <button
-                onClick={() => handleDelete(order._id)}
-                className="bg-red-500 hover:bg-red-600 mt-4 px-3 py-1 rounded text-white text-sm"
-              >
-                Delete Order
-              </button>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   );

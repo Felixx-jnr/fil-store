@@ -35,7 +35,7 @@ export default function AdminUsersPage() {
     } else if (sortOption === "orders") {
       return b.totalOrders - a.totalOrders;
     }
-    return 0; // default order
+    return 0;
   });
 
   if (loading) return <p className="p-4">Loading users...</p>;
@@ -54,7 +54,7 @@ export default function AdminUsersPage() {
         <div className="mb-4">
           <label
             htmlFor="sort"
-            className="mr-2 font-semibold "
+            className="mr-2 font-semibold"
           >
             Sort Users By:
           </label>
@@ -62,7 +62,7 @@ export default function AdminUsersPage() {
             id="sort"
             value={sortOption || ""}
             onChange={(e) => setSortOption(e.target.value || null)}
-            className="px-2 py-1 border-2 border-moss outline-0 rounded"
+            className="px-2 py-1 border-2 border-moss rounded outline-0"
           >
             <option value="">-- No Sort --</option>
             <option value="spent">Total Spent</option>

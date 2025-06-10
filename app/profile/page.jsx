@@ -61,25 +61,34 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const res = await fetch("https://restcountries.com/v3.1/all");
+        const res = await fetch(
+          "https://restcountries.com/v3.1/all?fields=name,cca2"
+        );
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
         const data = await res.json();
 
         if (!Array.isArray(data)) {
-          console.error('Unexpected data format:', data);
+          console.error("Unexpected data format:", data);
           return;
         }
 
         const sortedCountries = data
           .map((c) => ({
-            name: c.name.common,
-            code: c.cca2,
+            name: c.name?.common || "Unknown",
+            code: c.cca2 || "",
           }))
           .sort((a, b) => a.name.localeCompare(b.name));
+
         setCountryList(sortedCountries);
       } catch (err) {
-        console.error("Failed to fetch countries", err);
+        console.error("Failed to fetch countries:", err);
       }
     };
+
     fetchCountries();
   }, []);
 
@@ -114,13 +123,13 @@ export default function ProfilePage() {
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           PROFILE PAGE
         </h1>
-        <div className=" font-semibold text-gren text-xs xs:text-lg text-center">
+        <div className="font-semibold text-gren text-xs xs:text-lg text-center">
           {user?.email}
         </div>
         <p className="text-gren text-xs xs:text-sm text-center">
           Fill in your details, to get a customize experience
         </p>
-        
+
         {Object.entries(formData).map(([key, value]) => (
           <div
             key={key}
