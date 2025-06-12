@@ -35,10 +35,10 @@ export default function ProductList() {
       {products.map((product) => (
         <div
           key={product._id}
-          className="bg-light p-4 rounded"
+          className="bg-light rounded p-2"
         >
           <Link href={`/products/${product._id}`}>
-            <div className="mx-auto w-full h-64">
+            <div className=" w-[100%] h-64 p-2">
               <img
                 src={product.image}
                 alt={product.name}
@@ -46,12 +46,12 @@ export default function ProductList() {
               />
             </div>
 
-            <h3 className="font-medium text-dark text-2xl text-wrap">
+            <h3 className="font-medium text-dark text-xl text-wrap">
               {product.name}
             </h3>
 
             <p className="mb-1 font-poppins text-gren text-sm text-wrap">
-              {product.description}
+              {product.category}
             </p>
             <span className="flex gap-3">
               <p className="font-poppins text-gray-400 line-through"> $18</p>{" "}

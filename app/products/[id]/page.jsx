@@ -8,7 +8,7 @@ import { getProduct } from "@/store/features/productSlice";
 import AddToCartButton from "@/components/AddToCart";
 import Loading from "@/components/Loading";
 import Rating from "@/components/Rating";
-import {formatAmount} from "@/lib/utils"
+import { formatAmount } from "@/lib/utils";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
@@ -86,22 +86,62 @@ export default function ProductDetailsPage() {
   if (!product) return <p>Product not found</p>;
 
   return (
-    <div className="mx-auto mt-[50px] px-4 py-5 max-w-2xl">
-      <img
-        src={product.image}
-        alt={product.name}
-        className="rounded w-full h-80 object-cover"
-      />
-      <h1 className="mt-4 font-bold text-2xl">{product.name}</h1>
-      <p className="mt-2 text-gray-700">{product.description}</p>
-      <p className="mt-4 font-semibold text-xl"> {formatAmount(product.price)}</p>
-      <AddToCartButton product={product} />
+    <div className="mx-auto mt-[50px] px-10 pt-5">
+      <div className="place-items-center grid grid-cols-[0.4fr_0.6fr]">
+        <div className="mx-auto w-[100%] h-80">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-contain"
+          />
+        </div>
 
-      <Rating productId={product._id} />
+        <div className="flex flex-col justify-center mx-auto w-[100%]">
+          <h3 className="font-medium text-dark text-xl text-wrap">
+            {product.name}
+          </h3>
+          <p className="mb-1 font-poppins text-gren text-sm text-wrap">
+            {product.category}
+          </p>
+          <span className="flex gap-3">
+            <p className="font-poppins text-gray-400 line-through"> $18</p>{" "}
+            <p className="font-poppins font-medium text-dark">
+              {formatAmount(product.price)}
+            </p>
+          </span>
+
+          <div className="mt-1 mb-2">
+            <Rating productId={product._id} />
+          </div>
+
+          <AddToCartButton product={product} />
+        </div>
+      </div>
+
+      <h3 className="mt-8 mb-1 font-semibold text-lg">PRODUCT DESCRIPTION</h3>
+      <p>
+        {" "}
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos
+        rerum velit ducimus facere natus! Incidunt est repudiandae laboriosam
+        qui, expedita nemo. Incidunt facilis animi sunt illum quod minus quam
+        tempora quaerat earum, saepe et. Doloremque nulla delectus commodi
+        maiores velit iste ullam nisi numquam incidunt? Minima, impedit vel
+        quaerat eligendi ex quod minus molestias sed aliquid temporibus animi
+        dolorem optio qui ipsam natus quo voluptatem voluptatibus. Cumque
+        molestiae blanditiis aliquid natus dolorum, expedita iste reiciendis
+        architecto neque veritatis eos doloremque inventore quam quos quae fuga
+        praesentium vero ut at debitis vitae. Dignissimos tenetur excepturi
+        laudantium explicabo itaque quo accusamus. Neque quibusdam est illum
+        reiciendis cupiditate velit qui assumenda nemo in voluptate vitae
+        architecto repellendus eligendi sapiente laudantium veniam earum dolorum
+        porro, repellat nostrum hic rerum error! Illo maiores vero eaque ratione
+        qui, illum dolorem atque non sit quam cupiditate, nesciunt pariatur
+        saepe officiis esse autem quidem, harum nisi magni dolores!{" "}
+      </p>
 
       {/* Comments Section */}
-      <div className="mt-8">
-        <h2 className="mb-3 font-bold text-xl">Comments</h2>
+      <div className="mt-8 w-[85%] mx-auto">
+        <h2 className="font-bold text-xl">Comments</h2>
 
         {comments.length === 0 ? (
           <p className="text-gray-500">No comments yet.</p>
