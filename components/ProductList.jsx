@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "@/store/features/productSlice";
 import Link from "next/link";
 import Loading from "@/components/Loading";
+import ProductFilter from "@/components/ProductFilter";
+import { formatAmount } from "lib/utils";
 import AddToCartButton from "@/components/AddToCart";
+import Rating from "@/components/Rating";
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -22,36 +25,54 @@ export default function ProductList() {
     );
 
   return (
-    <div className="gap-4 grid grid-cols-2 md:grid-cols-4 mt-[50px] p-4 form-bacground">
+    <div className = "form-background mt-[50px]">
+      {/* <div>
+
+        <ProductFilter /> 
+      </div> */}
+      <div className="gap-4 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto mt- p-4 max-w-[1350px]">
+      
       {products.map((product) => (
         <div
           key={product._id}
-          className="bg-[#188672]/40 shadow-2xl backdrop-blur-2xl p-4 rounded"
+          className="bg-light p-4 rounded"
         >
           <Link href={`/products/${product._id}`}>
-            <div>
+            <div className="mx-auto w-full h-64">
               <img
                 src={product.image}
                 alt={product.name}
-                
+                className="w-full h-full object-contain"
               />
             </div>
 
-            <h3 className="text-light text-xl text-wrap tracking-wide">
+            <h3 className="font-medium text-dark text-2xl text-wrap">
               {product.name}
             </h3>
-            <p className="py-1 font-poppins text-mustard text-sm text-wrap">
+
+            <p className="mb-1 font-poppins text-gren text-sm text-wrap">
               {product.description}
             </p>
-            <span className="flex gap-3 mb-2 py-1">
+            <span className="flex gap-3">
               <p className="font-poppins text-gray-400 line-through"> $18</p>{" "}
-              <p className="font-poppins text-light">{product.price}</p>
+              <p className="font-poppins font-medium text-dark">
+                {formatAmount(product.price)}
+              </p>
             </span>
-            
           </Link>
-          <AddToCartButton product={product} />
+
+          <div className = "mt-1 mb-2">
+            <Rating
+              productId={product._id}
+              readOnly={true}
+            />
+          </div>
+          <div className = "w-full block  ">
+            <AddToCartButton  className = "w-full block" product={product} />
+          </div>
         </div>
       ))}
+    </div>
     </div>
   );
 }

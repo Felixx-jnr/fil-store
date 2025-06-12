@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import axios from "axios";
 
-export default function Rating({ productId }) {
+export default function Rating({ productId, readOnly = false }) {
   const [userHasRated, setUserHasRated] = useState(false);
   const [hovered, setHovered] = useState(0);
   const [average, setAverage] = useState(null); // start as null to detect loading
@@ -48,7 +48,7 @@ export default function Rating({ productId }) {
     const effectiveRating = userHasRated ? average : hovered || userRating || 0;
     const rounded = Math.round((effectiveRating || 0) * 2) / 2;
 
-    if (userHasRated) {
+    if ( readOnly || userHasRated) {
       if (rounded >= index) {
         return <FaStar key={index} className="text-yellow-500 text-xl" />;
       } else if (rounded + 0.5 === index) {
@@ -62,21 +62,21 @@ export default function Rating({ productId }) {
         <FaStar
           key={index}
           className={`text-xl ${isFilled ? "text-yellow-500" : "text-gray-300"} cursor-pointer`}
-          onMouseEnter={() => setHovered(index)}
-          onMouseLeave={() => setHovered(0)}
-          onClick={() => handleRate(index)}
+          onMouseEnter={!readOnly? () => setHovered(index): undefined}
+          onMouseLeave={!readOnly? () => setHovered(0): undefined}
+          onClick={!readOnly? () => handleRate(index): undefined}
         />
       );
     }
   };
 
   return (
-    <div className="flex items-center space-x-2 mt-4">
+    <div className="flex items-center space-x-2">
       {[1, 2, 3, 4, 5].map((i) => renderStar(i))}
-      <span className="text-gray-600 text-sm">
+      {!readOnly && <span className="text-gray-600 text-sm">
         ({typeof average === "number" && !isNaN(average) ? average.toFixed(1) : "0.0"} / 5)
-      </span>
-      {userHasRated && (
+      </span>}
+      {!readOnly && userHasRated && (
         <span className="ml-2 text-green-600 text-xs">
           You’ve rated this product
         </span>

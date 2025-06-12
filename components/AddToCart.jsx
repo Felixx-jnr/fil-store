@@ -2,7 +2,7 @@
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/features/cartSlice";
 
-const AddToCartButton = ({ product }) => {
+const AddToCartButton = ({ product, className = "" }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
@@ -20,7 +20,7 @@ const AddToCartButton = ({ product }) => {
   return (
     <button
       onClick={handleAddToCart}
-      className="buttons"
+      className="bg-green-800 hover:bg-mustard px-2 xs:px-3 py-2 xs:py-3 font-poppins text-light hover:text-dark text-xs xs:text-sm w-full"
     >
       Add to Cart
     </button>
