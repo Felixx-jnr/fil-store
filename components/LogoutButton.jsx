@@ -21,9 +21,9 @@ const LogoutButton = () => {
   return (
     <button
       onClick={handleLogout}
-      className="buttons"
+      className=" text-red-400 hover:text-red-700 "
     >
-      Logout
+      Logout 
     </button>
   );
 };

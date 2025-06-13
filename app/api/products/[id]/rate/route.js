@@ -1,4 +1,3 @@
-// app/api/products/[id]/rate/route.js
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { connectDB } from "@/lib/db";
@@ -24,7 +23,6 @@ export async function POST(req, context) {
   const { value } = await req.json();
 
   const product = await Product.findById(id);
-
   if (!product) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
   }
@@ -34,34 +32,25 @@ export async function POST(req, context) {
   );
 
   if (existingRating) {
-    existingRating.value = value;
-  } else {
-    product.ratings.push({ user: decoded.id, value });
+    return NextResponse.json({ error: "Already rated" }, { status: 400 });
   }
 
+  product.ratings.push({ user: decoded.id, value });
   await product.save();
 
   const updatedProduct = await Product.findById(id);
-  const sum = updatedProduct.ratings.reduce(
-    (acc, r) => acc + Number(r.value),
-    0
-  );
+  const sum = updatedProduct.ratings.reduce((acc, r) => acc + r.value, 0);
   const averageRating = sum / updatedProduct.ratings.length;
-
-  const userRating = updatedProduct.ratings.find(
-    (r) => r.user.toString() === decoded.id
-  )?.value;
 
   return NextResponse.json({
     message: "Rating submitted successfully",
     averageRating,
-    userRating,
   });
 }
 
 export async function GET(req, context) {
   await connectDB();
-  const { id } = await context.params;
+  const { id } = context.params;
 
   const token = req.cookies.get("token")?.value;
   let userId = null;
@@ -72,7 +61,7 @@ export async function GET(req, context) {
       userId = decoded.id;
     } catch (error) {
       console.error(error);
-      // token invalid — ignore and continue anonymously
+      // invalid token – allow anonymous
     }
   }
 
@@ -81,15 +70,16 @@ export async function GET(req, context) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
   }
 
+  const sum = product.ratings.reduce((acc, r) => acc + r.value, 0);
   const averageRating =
-    product.ratings.length === 0
-      ? 0
-      : product.ratings.reduce((acc, r) => acc + r.value, 0) /
-        product.ratings.length;
+    product.ratings.length > 0 ? sum / product.ratings.length : 0;
 
-  const userRating = userId
-    ? product.ratings.find((r) => r.user.toString() === userId)?.value || null
-    : null;
+  const userHasRated = userId
+    ? product.ratings.some((r) => r.user.toString() === userId)
+    : false;
 
-  return NextResponse.json({ averageRating, userRating });
+  return NextResponse.json({
+    averageRating,
+    userHasRated,
+  });
 }

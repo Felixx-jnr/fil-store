@@ -25,54 +25,66 @@ export default function ProductList() {
     );
 
   return (
-    <div className = "form-background mt-[50px]">
-      {/* <div>
+    <div className="flex justify-center mt-[50px] px-1 sm:px-10 py-10 form-background">
+      <div className="bg-white shadow-2xl  px-3 py-5 rounded-2xl w-[98%]">
+        <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
+          SHOP
+        </h1>
+        <p className="mb-5 text-gren text-xs xs:text-sm text-center">
+          Get All Our Products Here
+        </p>
 
-        <ProductFilter /> 
-      </div> */}
-      <div className="gap-4 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto mt- p-4 max-w-[1350px]">
-      
-      {products.map((product) => (
-        <div
-          key={product._id}
-          className="bg-light rounded p-2"
-        >
-          <Link href={`/products/${product._id}`}>
-            <div className=" w-[100%] h-64 p-2">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-contain"
-              />
+        <div className="gap-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto p-2 max-w-[1350px]">
+          {products.map((product) => (
+            <div
+              key={product._id}
+              className="bg-light p-2 rounded"
+            >
+              <Link href={`/products/${product._id}`}>
+                <div className="p-2 w-[100%] h-32">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+
+                <h3 className=" text-dark text-lg line-clamp-1">
+                  {product.name}
+                </h3>
+
+                <p className="  text-gren text-xs text-wrap font-medium">
+                  {product.category}
+                </p>
+                <span className="flex gap-3">
+                  <p className=" text-gray-500 line-through text-sm">
+                    {" "}
+                    {formatAmount(18)}{" "}
+                  </p>{" "}
+                  <p className=" text-sm  font-medium text-dark">
+                    {formatAmount(product.price)}
+                  </p>
+                </span>
+              </Link>
+
+              <div className="  mb-2 ">
+                <Rating
+                  productId={product._id}
+                  readOnly={true}
+                  className=" text-lg"
+                />
+              </div>
+
+              <div className="">
+                <AddToCartButton
+                  className="w-full"
+                  product={product}
+                />
+              </div>
             </div>
-
-            <h3 className="font-medium text-dark text-xl text-wrap">
-              {product.name}
-            </h3>
-
-            <p className="mb-1 font-poppins text-gren text-sm text-wrap">
-              {product.category}
-            </p>
-            <span className="flex gap-3">
-              <p className="font-poppins text-gray-400 line-through"> $18</p>{" "}
-              <p className="font-poppins font-medium text-dark">
-                {formatAmount(product.price)}
-              </p>
-            </span>
-          </Link>
-
-          <div className = "mt-1 mb-2">
-            <Rating
-              productId={product._id}
-              readOnly={true}
-            />
-          </div>
-          <div className = "w-full block  ">
-            <AddToCartButton  className = "w-full block" product={product} />
-          </div>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
     </div>
   );
 }

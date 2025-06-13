@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import axios from "axios";
 
-export default function Rating({ productId, readOnly = false }) {
-  const [userHasRated, setUserHasRated] = useState(false);
+export default function Rating({ productId, className="", readOnly = false }) {
   const [hovered, setHovered] = useState(0);
-  const [average, setAverage] = useState(null); // start as null to detect loading
-  const [userRating, setUserRating] = useState(null);
+  const [average, setAverage] = useState(0);
+  const [userHasRated, setUserHasRated] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -16,8 +15,7 @@ export default function Rating({ productId, readOnly = false }) {
       try {
         const res = await axios.get(`/api/products/${productId}/rate`);
         setAverage(res.data.averageRating ?? 0);
-        setUserRating(res.data.userRating);
-        setUserHasRated(!!res.data.userRating);
+        setUserHasRated(res.data.userHasRated);
       } catch (err) {
         console.error("Error fetching rating:", err);
       }
@@ -27,7 +25,7 @@ export default function Rating({ productId, readOnly = false }) {
   }, [productId]);
 
   const handleRate = async (value) => {
-    if (loading) return;
+    if (loading || userHasRated) return;
     try {
       setLoading(true);
       const res = await axios.post(`/api/products/${productId}/rate`, {
@@ -35,47 +33,44 @@ export default function Rating({ productId, readOnly = false }) {
       });
       setAverage(Number(res.data.averageRating) || 0);
       setUserHasRated(true);
-      setUserRating(value);
     } catch (err) {
       console.error(err);
-      alert("Please log in to rate.");
+      alert("You must be logged in to rate.");
     } finally {
       setLoading(false);
     }
   };
 
   const renderStar = (index) => {
-    const effectiveRating = userHasRated ? average : hovered || userRating || 0;
-    const rounded = Math.round((effectiveRating || 0) * 2) / 2;
+    const effectiveRating = hovered || average;
+    const rounded = Math.round(effectiveRating * 2) / 2;
 
-    if ( readOnly || userHasRated) {
-      if (rounded >= index) {
-        return <FaStar key={index} className="text-yellow-500 text-xl" />;
-      } else if (rounded + 0.5 === index) {
-        return <FaStarHalfAlt key={index} className="text-yellow-500 text-xl" />;
-      } else {
-        return <FaRegStar key={index} className="text-gray-300 text-xl" />;
-      }
+    if (rounded >= index) {
+      return <FaStar key={index} className="text-yellow-500 " />;
+    } else if (rounded + 0.5 === index) {
+      return <FaStarHalfAlt key={index} className="text-yellow-500 " />;
     } else {
-      const isFilled = effectiveRating >= index;
+      const clickable = !readOnly && !userHasRated;
       return (
-        <FaStar
+        <FaRegStar
           key={index}
-          className={`text-xl ${isFilled ? "text-yellow-500" : "text-gray-300"} cursor-pointer`}
-          onMouseEnter={!readOnly? () => setHovered(index): undefined}
-          onMouseLeave={!readOnly? () => setHovered(0): undefined}
-          onClick={!readOnly? () => handleRate(index): undefined}
+          className={`text-xl ${
+            clickable ? "cursor-pointer hover:text-yellow-400" : "text-gray-300"
+          }`}
+          onMouseEnter={clickable ? () => setHovered(index) : undefined}
+          onMouseLeave={clickable ? () => setHovered(0) : undefined}
+          onClick={clickable ? () => handleRate(index) : undefined}
         />
       );
     }
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className={`flex items-center space-x-1 ${className}`}>
       {[1, 2, 3, 4, 5].map((i) => renderStar(i))}
-      {!readOnly && <span className="text-gray-600 text-sm">
-        ({typeof average === "number" && !isNaN(average) ? average.toFixed(1) : "0.0"} / 5)
-      </span>}
+      {/* <span className="text-gray-600 text-sm">
+        ({average.toFixed(1)} / 5)
+      </span> */}
       {!readOnly && userHasRated && (
         <span className="ml-2 text-green-600 text-xs">
           You’ve rated this product

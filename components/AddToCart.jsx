@@ -20,7 +20,7 @@ const AddToCartButton = ({ product, className = "" }) => {
   return (
     <button
       onClick={handleAddToCart}
-      className="bg-green-800 hover:bg-mustard px-2 xs:px-3 py-2 xs:py-3 font-poppins text-light hover:text-dark text-xs xs:text-sm w-full"
+      className={`bg-green-800 hover:bg-mustard px-2 xs:px-3 py-2 xs:py-3 font-poppins text-light hover:text-dark text-xs xs:text-sm ${className}`}
     >
       Add to Cart
     </button>

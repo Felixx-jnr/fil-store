@@ -118,9 +118,9 @@ export default function ProductDetailsPage() {
         </div>
       </div>
 
-      <h3 className="mt-8 mb-1 font-semibold text-lg">PRODUCT DESCRIPTION</h3>
-      <p>
-        {" "}
+      <h3 className="mt-8 mb-1 font-semibold text-xl">PRODUCT DESCRIPTION</h3>
+      <p className = "text-justify">
+       
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos
         rerum velit ducimus facere natus! Incidunt est repudiandae laboriosam
         qui, expedita nemo. Incidunt facilis animi sunt illum quod minus quam
@@ -140,7 +140,7 @@ export default function ProductDetailsPage() {
       </p>
 
       {/* Comments Section */}
-      <div className="mt-8 w-[85%] mx-auto">
+      <div className="mx-auto mt-8">
         <h2 className="font-bold text-xl">Comments</h2>
 
         {comments.length === 0 ? (
@@ -179,24 +179,24 @@ export default function ProductDetailsPage() {
             />
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 mt-2 px-4 py-2 rounded text-white"
+              className="buttons mb-5"
               disabled={submitting}
             >
               {submitting ? "Posting..." : "Post Comment"}
             </button>
           </form>
         ) : (
-          <p className="mt-4 text-gray-600 text-sm">
+          <p className="my-4 text-gray-600 text-sm">
             <a
               href="/login"
-              className="text-blue-500 underline"
+              className="text-filgreen underline"
             >
               Log in
             </a>{" "}
             or{" "}
             <a
               href="/register"
-              className="text-blue-500 underline"
+              className="text-filgreen underline"
             >
               register
             </a>{" "}

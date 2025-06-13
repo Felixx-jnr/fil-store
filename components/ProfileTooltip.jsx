@@ -56,7 +56,7 @@ const ProfileTooltip = () => {
                   Track Orders
                 </Link>
 
-                <div className="w-full text-red-500 text-left hover:underline">
+                <div className="">
                   <LogoutButton />
                 </div>
               </div>
