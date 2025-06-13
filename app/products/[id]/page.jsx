@@ -86,8 +86,8 @@ export default function ProductDetailsPage() {
   if (!product) return <p>Product not found</p>;
 
   return (
-    <div className="mx-auto mt-[50px] px-10 pt-5">
-      <div className="place-items-center grid grid-cols-[0.4fr_0.6fr]">
+    <div className="mx-auto mt-[50px] px-2 s:px-10 pt-5">
+      <div className="block place-items-center gap-3 xs:grid grid-cols-[0.4fr_0.6fr]">
         <div className="mx-auto w-[100%] h-80">
           <img
             src={product.image}
@@ -97,10 +97,10 @@ export default function ProductDetailsPage() {
         </div>
 
         <div className="flex flex-col justify-center mx-auto w-[100%]">
-          <h3 className="font-medium text-dark text-xl text-wrap">
+          <h3 className="font-semibold text-dark text-2xl text-wrap">
             {product.name}
           </h3>
-          <p className="mb-1 font-poppins text-gren text-sm text-wrap">
+          <p className="mb-1 font-poppins text-gren text-lg text-wrap">
             {product.category}
           </p>
           <span className="flex gap-3">
@@ -111,7 +111,7 @@ export default function ProductDetailsPage() {
           </span>
 
           <div className="mt-1 mb-2">
-            <Rating productId={product._id} />
+            <Rating productId={product._id} className= "text-2xl" />
           </div>
 
           <AddToCartButton product={product} />
@@ -119,8 +119,7 @@ export default function ProductDetailsPage() {
       </div>
 
       <h3 className="mt-8 mb-1 font-semibold text-xl">PRODUCT DESCRIPTION</h3>
-      <p className = "text-justify">
-       
+      <p className="text-justify">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos
         rerum velit ducimus facere natus! Incidunt est repudiandae laboriosam
         qui, expedita nemo. Incidunt facilis animi sunt illum quod minus quam
@@ -141,7 +140,7 @@ export default function ProductDetailsPage() {
 
       {/* Comments Section */}
       <div className="mx-auto mt-8">
-        <h2 className="font-bold text-xl">Comments</h2>
+        <h2 className="mt-8 mb-1 font-semibold text-xl">Comments</h2>
 
         {comments.length === 0 ? (
           <p className="text-gray-500">No comments yet.</p>
@@ -179,7 +178,7 @@ export default function ProductDetailsPage() {
             />
             <button
               type="submit"
-              className="buttons mb-5"
+              className="mb-5 buttons"
               disabled={submitting}
             >
               {submitting ? "Posting..." : "Post Comment"}
