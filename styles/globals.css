@@ -35,6 +35,11 @@
   @apply bg-red-600 hover:bg-red-700 px-1 xs:px-2 py-1 xs:py-2 font-poppins text-light hover:text-dark text-xs xs:text-sm;
 }
 
+.white-background {
+  @apply bg-white shadow-2xl px-3 py-5 rounded-2xl w-[98%];
+}
+
+
 .home-stick {
   background-image: url("/filpods.png");
   background-size: cover;

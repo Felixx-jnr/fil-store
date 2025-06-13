@@ -6,12 +6,15 @@ import * as Yup from "yup";
 import { GoPerson } from "react-icons/go";
 import { IoIosLock } from "react-icons/io";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Loading from "@/components/Loading"
 
 export default function ResetForm() {
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   // 🔒 Yup password schema
   const passwordSchema = Yup.string()
@@ -32,6 +35,7 @@ export default function ResetForm() {
     onSubmit: async (values) => {
       setError("");
       setMessage("");
+      setLoading(true);
       try {
         const res = await fetch("/api/auth/reset-password", {
           method: "POST",
@@ -44,6 +48,8 @@ export default function ResetForm() {
         setStep(2);
       } catch (err) {
         setError(err.message);
+      } finally {
+        setLoading(false);
       }
     },
   });
@@ -61,6 +67,7 @@ export default function ResetForm() {
     onSubmit: async (values) => {
       setError("");
       setMessage("");
+      setLoading(true);
       try {
         const res = await fetch("/api/auth/reset-password", {
           method: "PUT",
@@ -79,14 +86,16 @@ export default function ResetForm() {
         formikStep1.resetForm();
         formikStep2.resetForm();
       } catch (err) {
-        setError(err.message);
+          setError(err.message);
+      } finally {
+          setLoading(false)
       }
     },
   });
 
   return (
     <div className="relative h-screen">
-      <div className="top-1/2 left-1/2 absolute bg-white shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[80%] md:w-[600px] -translate-x-1/2 -translate-y-1/2">
+      <div className="top-1/2 left-1/2 absolute bg-white shadow-2xl p-5 rounded-2xl w-[98%] xs:w-[95%] sm:w-[85%] md:w-[600px] -translate-x-1/2 -translate-y-1/2">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           RESET PASSWORD
         </h1>
@@ -118,10 +127,11 @@ export default function ResetForm() {
               </p>
             )}
             <button
-              className="mt-5 buttons"
+              className={loading? "mt-5" : "mt-5 buttons"}
               type="submit"
+              disabled = {loading}
             >
-              Send Reset Code
+              {loading? <Loading/> : "Send Reset Code"}
             </button>
           </form>
         )}
@@ -192,10 +202,11 @@ export default function ResetForm() {
             </div>
 
             <button
-              className="my-5 buttons"
+              className={loading? "mt-5 " : "mt-5 buttons"}
               type="submit"
+              disabled = {loading}
             >
-              Reset Password
+              {loading? <Loading/> : "Reset Password"}
             </button>
           </form>
         )}

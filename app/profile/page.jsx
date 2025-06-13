@@ -118,8 +118,8 @@ export default function ProfilePage() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="flex justify-center mt-[50px] p-10 form-background">
-      <div className="bg-white shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[80%] md:w-[600px]">
+    <div className="flex justify-center mt-[50px] xs:p-10 py-10 form-background">
+      <div className="bg-white shadow-2xl xs:p-5 px-2 py-5 rounded-2xl w-[98%] md:w-[700px]">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           PROFILE PAGE
         </h1>
