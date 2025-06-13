@@ -25,8 +25,8 @@ export default function ProductList() {
     );
 
   return (
-    <div className="flex justify-center mt-[50px] px-1 sm:px-10 py-10 form-background">
-      <div className="bg-white shadow-2xl  px-3 py-5 rounded-2xl w-[98%]">
+    <div className="flex justify-center mt-[50px] px-1 sm:px-10 py-5 form-background">
+      <div className="bg-white shadow-2xl px-3 py-5 rounded-2xl w-[98%]">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           SHOP
         </h1>
@@ -34,7 +34,7 @@ export default function ProductList() {
           Get All Our Products Here
         </p>
 
-        <div className="gap-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto p-2 max-w-[1350px]">
+        <div className="gap-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto p-1 s:p-2 max-w-[1350px]">
           {products.map((product) => (
             <div
               key={product._id}
@@ -49,29 +49,29 @@ export default function ProductList() {
                   />
                 </div>
 
-                <h3 className=" text-dark text-lg line-clamp-1">
+                <h3 className="font-medium text-dark text-sm s:text-lg line-clamp-1">
                   {product.name}
                 </h3>
 
-                <p className="  text-gren text-xs text-wrap font-medium">
+                <p className="font-medium text-gren text-xs text-wrap">
                   {product.category}
                 </p>
                 <span className="flex gap-3">
-                  <p className=" text-gray-500 line-through text-sm">
+                  <p className="text-gray-500 text-xs s:text-sm line-through">
                     {" "}
                     {formatAmount(18)}{" "}
                   </p>{" "}
-                  <p className=" text-sm  font-medium text-dark">
+                  <p className="font-medium text-dark text-xs s:text-sm">
                     {formatAmount(product.price)}
                   </p>
                 </span>
               </Link>
 
-              <div className="  mb-2 ">
+              <div className="mb-2">
                 <Rating
                   productId={product._id}
                   readOnly={true}
-                  className=" text-lg"
+                  className="text-sm sm:text-lg"
                 />
               </div>
 

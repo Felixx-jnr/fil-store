@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import axios from "axios";
 
-export default function Rating({ productId, className="", readOnly = false }) {
+export default function Rating({
+  productId,
+  className = "",
+  readOnly = false,
+}) {
   const [hovered, setHovered] = useState(0);
   const [average, setAverage] = useState(0);
   const [userHasRated, setUserHasRated] = useState(false);
@@ -46,15 +50,25 @@ export default function Rating({ productId, className="", readOnly = false }) {
     const rounded = Math.round(effectiveRating * 2) / 2;
 
     if (rounded >= index) {
-      return <FaStar key={index} className="text-yellow-500 " />;
+      return (
+        <FaStar
+          key={index}
+          className="text-yellow-500"
+        />
+      );
     } else if (rounded + 0.5 === index) {
-      return <FaStarHalfAlt key={index} className="text-yellow-500 " />;
+      return (
+        <FaStarHalfAlt
+          key={index}
+          className="text-yellow-500"
+        />
+      );
     } else {
       const clickable = !readOnly && !userHasRated;
       return (
         <FaRegStar
           key={index}
-          className={`text-xl ${
+          className={` ${
             clickable ? "cursor-pointer hover:text-yellow-400" : "text-gray-300"
           }`}
           onMouseEnter={clickable ? () => setHovered(index) : undefined}

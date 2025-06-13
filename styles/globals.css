@@ -20,6 +20,7 @@
   --color-filgrey: #99a1af;
 
   /* SCREEN SIZES */
+  --breakpoint-s: 500px;
   --breakpoint-xs: 400px;
   --breakpoint-xxs: 350px;
 }
