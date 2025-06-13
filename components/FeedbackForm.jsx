@@ -40,8 +40,8 @@ export default function FeedbackForm() {
   };
 
   return (
-    <div className="flex justify-center mt-[50px] xs:p-10 px-3 py-10 form-background">
-      <div className="bg-white shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[95%] md:w-[600px]">
+    <div className="flex justify-center mt-[50px] py-5 form-background">
+      <div className="bg-white shadow-2xl p-3 rounded-2xl w-[95%] sm:w-[85%] md:w-[700px]">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           RATE YOUR EXPERIENCE
         </h1>
@@ -81,12 +81,11 @@ export default function FeedbackForm() {
 
             <div className="flex items-center gap-2 px-2 py-3 border-filgrey border-b">
               <textarea
-                id = "comment"
+                id="comment"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder="Leave a comment (optional)"
                 className="block outline-0 w-full placeholder-filgrey"
-                
               />
             </div>
           </div>

@@ -9,6 +9,7 @@ import { useState } from "react";
 const ProfileTooltip = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const [isHovered, setIsHovered] = useState(false);
+  const isAdmin = user?.role === "admin";
 
   return (
     <li
@@ -55,6 +56,34 @@ const ProfileTooltip = () => {
                 >
                   Track Orders
                 </Link>
+
+                {isAdmin && (
+                  <div className = "space-y-3 text-lg">
+                    <Link
+                      href="/admin/orders"
+                      className="block text-filgreen hover:text-mustard hover:underline"
+                    >
+                      Admin Orders
+                    </Link>
+
+                    <Link
+                      href="/admin/products"
+                      className="block text-filgreen hover:text-mustard hover:underline"
+                    >
+                      Admin Products
+                    </Link>
+
+                    <Link
+                      href="/admin/users"
+                      className="block text-filgreen hover:text-mustard hover:underline"
+                    >
+                      Admin Users
+                    </Link>
+
+
+                  </div>  
+                  
+                )}
 
                 <div className="">
                   <LogoutButton />

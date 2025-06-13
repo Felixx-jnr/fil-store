@@ -26,7 +26,7 @@ export default function ProductList() {
 
   return (
     <div className="flex justify-center mt-[50px] px-1 sm:px-10 py-5 form-background">
-      <div className="white-background">
+      <div className="bg-white shadow-2xl px-3 py-5 rounded-2xl w-[98%]">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           SHOP
         </h1>

@@ -61,7 +61,7 @@ const RegistrationForm = () => {
 
   return (
     <div className="relative h-screen">
-      <div className="top-1/2 left-1/2 absolute bg-white shadow-2xl p-5 rounded-2xl w-[98%] xs:w-[95%] sm:w-[85%] md:w-[600px] -translate-x-1/2 -translate-y-1/2">
+      <div className="top-1/2 left-1/2 absolute bg-white shadow-2xl p-5 rounded-2xl w-[95%] sm:w-[85%] md:w-[700px] -translate-x-1/2 -translate-y-1/2">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           REGISTER
         </h1>
@@ -177,11 +177,11 @@ const RegistrationForm = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={ isLoading ? "block mt-5 " : "block mt-5 buttons"}
+            className={isLoading ? "block mt-5 " : "block mt-5 buttons"}
           >
             {isLoading ? <Loading /> : "Register"}
           </button>
-          {error && <p className = "text-red-500 text-sm">{error}</p>}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
         </form>
 
         <div className="mt-10 text-center">

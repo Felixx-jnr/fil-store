@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { GoPerson } from "react-icons/go";
 import { IoIosLock } from "react-icons/io";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import Loading from "@/components/Loading"
+import Loading from "@/components/Loading";
 
 export default function ResetForm() {
   const [step, setStep] = useState(1);
@@ -14,7 +14,6 @@ export default function ResetForm() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-
 
   // 🔒 Yup password schema
   const passwordSchema = Yup.string()
@@ -86,16 +85,16 @@ export default function ResetForm() {
         formikStep1.resetForm();
         formikStep2.resetForm();
       } catch (err) {
-          setError(err.message);
+        setError(err.message);
       } finally {
-          setLoading(false)
+        setLoading(false);
       }
     },
   });
 
   return (
     <div className="relative h-screen">
-      <div className="top-1/2 left-1/2 absolute bg-white shadow-2xl p-5 rounded-2xl w-[98%] xs:w-[95%] sm:w-[85%] md:w-[600px] -translate-x-1/2 -translate-y-1/2">
+      <div className="top-1/2 left-1/2 absolute bg-white shadow-2xl p-5 rounded-2xl w-[95%] sm:w-[85%] md:w-[700px] -translate-x-1/2 -translate-y-1/2">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           RESET PASSWORD
         </h1>
@@ -127,11 +126,11 @@ export default function ResetForm() {
               </p>
             )}
             <button
-              className={loading? "mt-5" : "mt-5 buttons"}
+              className={loading ? "mt-5" : "mt-5 buttons"}
               type="submit"
-              disabled = {loading}
+              disabled={loading}
             >
-              {loading? <Loading/> : "Send Reset Code"}
+              {loading ? <Loading /> : "Send Reset Code"}
             </button>
           </form>
         )}
@@ -202,11 +201,11 @@ export default function ResetForm() {
             </div>
 
             <button
-              className={loading? "mt-5 " : "mt-5 buttons"}
+              className={loading ? "mt-5 " : "mt-5 buttons"}
               type="submit"
-              disabled = {loading}
+              disabled={loading}
             >
-              {loading? <Loading/> : "Reset Password"}
+              {loading ? <Loading /> : "Reset Password"}
             </button>
           </form>
         )}
