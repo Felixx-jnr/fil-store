@@ -9,6 +9,7 @@ import { MdOutlineEmail } from "react-icons/md";
 import { FiPhone } from "react-icons/fi";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { formatAmount } from "lib/utils";
+import Loading from "@/components/Loading";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -97,11 +98,17 @@ export default function CheckoutPage() {
     }
   };
 
-  if (loading) return <p className="p-4">Loading user info...</p>;
+  if (loading)
+    return (
+      <p className="p-4">
+        {" "}
+        <Loading />{" "}
+      </p>
+    );
 
   return (
-    <div className="flex justify-center mt-[50px] px-3 xs:p-10 py-10 form-background">
-      <div className="bg-white shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[95%] md:w-[600px]">
+    <div className="flex justify-center mt-[50px] py-10 form-background">
+      <div className="bg-white shadow-2xl xs:p-5 px-2 py-5 rounded-2xl w-[95%] sm:w-[85%] md:w-[700px]">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           CHECKOUT
         </h1>
@@ -111,19 +118,21 @@ export default function CheckoutPage() {
 
         {/* Cart Items */}
         <div className="bg-light shadow mb-6 p-4 rounded">
-          <h3 className="mb-2 font-semibold text-2xl text-gren">Cart Items</h3>
+          <h3 className="mb-2 font-semibold text-gren text-2xl">Cart Items</h3>
           {cartItems.map((item) => (
             <div
               key={item._id}
               className="flex justify-between py-1 border-b text-sm"
             >
-              <span className = "font-semibold">
+              <span className="font-semibold">
                 {item.name} × {item.quantity || 1}
               </span>
-              <span className = " font-semibold text-sm text-gren  " >{formatAmount(item.price * (item.quantity || 1))}</span>
+              <span className="font-semibold text-gren text-sm">
+                {formatAmount(item.price * (item.quantity || 1))}
+              </span>
             </div>
           ))}
-          <div className="flex justify-between mt-3 font-bold text-lg text-gren">
+          <div className="flex justify-between mt-3 font-bold text-gren text-lg">
             <span>Total:</span>
             <span>{formatAmount(total)}</span>
           </div>
@@ -165,7 +174,7 @@ export default function CheckoutPage() {
 
             <div className="flex items-center gap-2 px-2 py-2 border-filgrey border-b">
               <span>
-                < MdOutlineEmail  className="text-gren text-2xl" />
+                <MdOutlineEmail className="text-gren text-2xl" />
               </span>
 
               <input

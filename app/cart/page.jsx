@@ -41,8 +41,8 @@ const CartPage = () => {
   );
 
   return (
-    <div className="flex justify-center mt-[50px] xs:p-10 py-10 form-background">
-      <div className="bg-white shadow-2xl xs:p-5 px-2 py-5 rounded-2xl w-[98%] md:w-[700px]">
+    <div className="flex justify-center mt-[50px] py-10 form-background">
+      <div className="bg-white shadow-2xl xs:p-5 px-2 py-5 rounded-2xl w-[95%] sm:w-[85%] md:w-[700px]">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           YOUR CART
         </h1>

@@ -5,7 +5,7 @@ import axios from "axios";
 import OrderProgressBar from "@/components/OrderTracking";
 import Loading from "@/components/Loading";
 import { MdDeliveryDining } from "react-icons/md";
-import {formatAmount} from "lib/utils";
+import { formatAmount } from "lib/utils";
 
 export default function TrackOrderPage() {
   const [orderId, setOrderId] = useState("");
@@ -34,8 +34,8 @@ export default function TrackOrderPage() {
   };
 
   return (
-    <div className="flex justify-center mt-[50px] p-10 form-background">
-      <div className="bg-white shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[80%] md:w-[600px]">
+    <div className="flex justify-center mt-[50px] py-10 form-background">
+      <div className="bg-white shadow-2xl xs:p-5 px-2 py-5 rounded-2xl w-[95%] sm:w-[85%] md:w-[700px]">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           TRACK YOUR ORDER
         </h1>
@@ -84,13 +84,15 @@ export default function TrackOrderPage() {
         {error && <p className="text-red-600">{error}</p>}
 
         {order && (
-          <div className="space-y-2 rounded-2xl shadow-lg mt-4 p-4">
+          <div className="space-y-2 shadow-lg mt-4 p-4 rounded-2xl">
             <h3 className="font-semibold text-gren text-lg">
               Order ID - {order._id}
             </h3>
             <OrderProgressBar currentStatus={order.status} />
 
-            <h3 className = "text-gren uppercase mt-10 font-semibold  ">ITEMS PURCHASED</h3>
+            <h3 className="mt-10 font-semibold text-gren uppercase">
+              ITEMS PURCHASED
+            </h3>
             <ul className="text-sm list-disc list-inside">
               {order.items.map((item, i) => (
                 <li key={i}>
@@ -98,8 +100,12 @@ export default function TrackOrderPage() {
                 </li>
               ))}
             </ul>
-            <p className = "text-gren text-lg font-semibold" >Total: { formatAmount(order.total)}</p>
-            <p className = "text-xs text-filgrey">Ordered On: {new Date(order.createdAt).toLocaleDateString()}</p>
+            <p className="font-semibold text-gren text-lg">
+              Total: {formatAmount(order.total)}
+            </p>
+            <p className="text-filgrey text-xs">
+              Ordered On: {new Date(order.createdAt).toLocaleDateString()}
+            </p>
           </div>
         )}
       </div>

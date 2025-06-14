@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/components/Loading";
-import {formatAmount} from "lib/utils"
+import { formatAmount } from "lib/utils";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -27,8 +27,8 @@ export default function OrdersPage() {
   if (loading) return <Loading />;
 
   return (
-    <div className="flex justify-center mt-[50px] p-10 form-background">
-      <div className="bg-white shadow-2xl p-5 rounded-2xl w-[95%] xs:w-[80%] md:w-[600px]">
+    <div className="flex justify-center mt-[50px] py-10 form-background">
+      <div className="bg-white shadow-2xl xs:p-5 px-2 py-5 rounded-2xl w-[95%] sm:w-[85%] md:w-[700px]">
         <h1 className="font-semibold text-gren text-3xl xs:text-4xl text-center">
           Your Orders
         </h1>
@@ -45,18 +45,20 @@ export default function OrdersPage() {
                 key={order._id}
                 className="shadow-lg p-4 rounded"
               >
-                <h3 className="font-semibold text-gren text-lg mb-3">
+                <h3 className="mb-3 font-semibold text-gren text-lg break-words">
                   Order ID - {order._id}
                 </h3>
-                <p className="text-gray-500 text-sm mb-2">
+                <p className="mb-2 text-gray-500 text-sm">
                   Status:{" "}
                   <span className="font-semibold text-filblue">
-                    {order.status }
+                    {order.status}
                   </span>
                 </p>
-                 <h3 className = "text-gren uppercase font-semibold  ">ITEMS PURCHASED</h3>
-    
-                <ul className="text-sm list-disc list-inside my-1">
+                <h3 className="font-semibold text-gren uppercase">
+                  ITEMS PURCHASED
+                </h3>
+
+                <ul className="my-1 text-sm list-disc list-inside">
                   {order.items.map((item, i) => (
                     <li key={i}>
                       {item.name} × {item.quantity} — {formatAmount(item.price)}
@@ -64,7 +66,9 @@ export default function OrdersPage() {
                   ))}
                 </ul>
 
-                <p className = "text-gren text-lg font-semibold" >Total: { formatAmount(order.total)}</p>
+                <p className="font-semibold text-gren text-lg">
+                  Total: {formatAmount(order.total)}
+                </p>
                 <p className="text-filgrey text-xs">
                   Ordered On: {new Date(order.createdAt).toLocaleDateString()}
                 </p>
